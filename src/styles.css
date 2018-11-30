@@ -2,19 +2,19 @@
   margin: 1.5rem;
 }
 .wbro-product-detail-breadcrumb {
-  padding:16px;
+  padding: 16px;
 }
 .wbro-product-detail-product-name {
-  font-size:16px;
+  font-size: 16px;
   line-height: 22px;
-  padding:10px 20px 0 ;
+  padding: 10px 20px 0;
   margin-bottom: 0;
-  font-weight:400;
+  font-weight: 400;
   vertical-align: baseline;
 }
 .wbro-product-detail-feedback-rate {
-  color:#08979c;
-  font-size:16px;
+  color: #08979c;
+  font-size: 16px;
 }
 .wbro-product-detail-feedback-indicator {
   line-height: 20px;
@@ -23,25 +23,25 @@
   overflow: hidden;
 }
 .wbro-product-detail-activity-banner-left {
-  padding:16px;
-  color:#ffffff;
+  padding: 16px;
+  color: #ffffff;
   font-weight: 700;
-  font-size:18px;
+  font-size: 18px;
 }
 .wbro-product-detail-activity-banner-right {
-  padding:16px;
-  color:#ffffff;
+  padding: 16px;
+  color: #ffffff;
   font-weight: 700;
-  font-size:18px;
+  font-size: 18px;
 }
 
-.wbro-product-detail-product-price-area{
-  padding:10px 20px 0 ;
+.wbro-product-detail-product-price-area {
+  padding: 10px 20px 0;
 }
 .wbro-product-detail-price-dollar {
-  color:#08979c;
-  font-size:20px;
-  font-weight: 900;
+  color: #08979c;
+  font-size: 20px;
+  font-weight: 400;
 }
 .wbro-product-detail-product-price-change {
   display: inline-block;
@@ -54,22 +54,21 @@
 .wbro-product-detail-add-to-cart-button-row {
   padding: 15px 0;
   /* border-bottom: 1px solid #eee; */
-
 }
-.wbro-product-detail-tag{
-  cursor:pointer;
+.wbro-product-detail-tag {
+  cursor: pointer;
   border-radius: 4px;
   background-color: white;
   padding: 5px 10px;
   margin: 0px 4px 8px 4px;
-  border:1px solid #ccc;
-  display:inline-block;
+  border: 1px solid #ccc;
+  display: inline-block;
 }
 .wbro-product-detail-tag:hover {
   background-color: #89bcbc;
 }
 .wbro-product-detail-padding-control {
-  padding:10px 20px 0 ;
+  padding: 10px 20px 0;
 }
 
 .wbro-product-detail-buyer-production-banner-horizatal {
@@ -78,23 +77,22 @@
   margin-top: 0;
   margin-left: 5px;
   padding-top: 0;
-}    
+}
 .wbro-product-detail-bp-ima {
   position: absolute;
   margin-left: -45px;
   width: 32px;
   height: 40px;
   background: url(./bp-icon.421d67f9.png) no-repeat 0 0;
-
 }
 .wbro-product-detail-buyer-protection-info {
   margin-bottom: 0;
   font-size: 22px;
   line-height: 30px;
   font-weight: 700;
-  color: #369
+  color: #369;
 }
-.wbro-product-detail-buyer-production-banner-horizatal li{
+.wbro-product-detail-buyer-production-banner-horizatal li {
   padding: 2px 20px;
   margin-left: 0;
   display: block;
@@ -103,53 +101,45 @@
   background: url(./bp-icon.421d67f9.png) no-repeat -88px -148px;
   background-position: -88px -145px;
 }
-.wbro-product-detail-buy-protection-info-list{
-  padding-inline-start:0px;
+.wbro-product-detail-buy-protection-info-list {
+  padding-inline-start: 0px;
 }
 .wbro-product-detail-media-screen-colon::before {
-  content:":";
+  content: ":";
 }
 .wbro-product-detail-media-screen-title::before {
-  content:"Price";
+  content: "Price";
 }
 .wbro-product-detail-qty-picker-avaiable {
   display: inline;
 }
-@media only screen and (max-width: 1200px) {
-  .wbro-product-detail-media-screen-colon::before {
-    content:"";
-  }
-  .wbro-product-detail-media-screen-title::before {
-    content:"";
-  }
 
-}
 @media only screen and (max-width: 1200px) {
   .wbro-product-detail-media-screen-colon::before {
-    content:"";
+    content: "";
   }
   .wbro-product-detail-media-screen-title::before {
-    content:"";
+    content: "";
+  }
+  .wbro-product-detail-media-screen-title {
+    font-weight: 900;
   }
   .App {
-    margin:0px;
+    margin: 0px;
   }
-
 }
 @media only screen and (max-width: 768px) {
-  
   .wbro-product-detail-product-name {
-    font-size:16px;
+    font-size: 16px;
     line-height: 22px;
-    padding:10px 20px 0 ;
+    padding: 10px 20px 0;
     margin-bottom: 0;
-    font-weight:700;
+    font-weight: 700;
     vertical-align: baseline;
   }
   .wbro-product-detail-qty-picker-avaiable {
     display: block;
   }
-
 }
 
 .product-detail-button {
@@ -169,13 +159,12 @@
 }
 
 .product-detail-button.link-to-ebay {
-  background-color: rgb(8, 151, 156, 0.2);
+  background-color: rgba(8, 151, 156, 0.2);
   font-weight: 400;
   opacity: 0.8;
 }
 
 .buynowform-container {
-  width: 80%
 }
 
 .clearfix {
@@ -186,4 +175,8 @@
   content: "";
   clear: both;
   display: table;
+}
+
+.description {
+  padding: 15px 15px 0 15px;
 }

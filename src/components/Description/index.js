@@ -5,13 +5,14 @@ import "./styles.css";
 
 export class Description extends React.Component {
   render() {
-    const { values = [], ...rest } = this.props;
+    const { values = [], description, ...rest } = this.props;
+    console.log(description);
     return (
       <div {...rest}>
         <UIBox title="Item specifics">
           <PropertyList data={values} />
         </UIBox>
-        <UIBox title="Product Description" />
+        <UIBox title="Product Description">{description}</UIBox>
         <UIBox title="Packaging Details">
           <PropertyList
             data={[

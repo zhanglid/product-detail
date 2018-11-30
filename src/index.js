@@ -18,7 +18,10 @@ import numeral from "numeral";
 import TabMenu from "./components/TabMenu";
 import group from "./mock/group";
 import BuyNowForm from "./components/BuyNowForm";
+import description from "./mock/description";
 import Description from "./components/Description";
+import renderHTML from "react-render-html";
+
 import "./styles.css";
 import "./antd.less";
 
@@ -176,7 +179,6 @@ const Payment = () => (
 const BuyerProtection = () => (
   <Row className="wbro-product-detail-padding-control wbro-product-detail-buyer-production-banner-horizatal">
     <span className="wbro-product-detail-bp-ima" />
-
     <h3 className="wbro-product-detail-buyer-protection-info">
       Buyer Protection
     </h3>
@@ -192,23 +194,15 @@ const BuyerProtection = () => (
 );
 
 const Actions = () => (
-  <div className="wbro-product-detail-product-action-block wbro-product-detail-padding-control ">
+  <Label className="wbro-product-detail-padding-control">
     <Row className="wbro-product-detail-add-to-cart-button-row">
-      <Col xxl={4} xl={4} lg={24} md={24} sm={24} xs={24} />
       <Col xxl={20} xl={20} lg={24} md={24} sm={24} xs={24}>
-        <Row gutter={16} type="flex">
-          <Col>
-            <button className="product-detail-button add-to-cart">
-              Add to cart
-            </button>
-          </Col>
-
-          <Col>
-            <button className="product-detail-button link-to-ebay">
-              Link to eBay
-            </button>
-          </Col>
-        </Row>
+        <button className="product-detail-button add-to-cart">
+          Add to cart
+        </button>
+        <button className="product-detail-button link-to-ebay">
+          Link to eBay
+        </button>
       </Col>
     </Row>
     <span className="wbro-product-detail-add-wishlist-action">
@@ -218,7 +212,7 @@ const Actions = () => (
         <span className="wbro-product-detail-wishlist-num"> (350 Adds)</span>
       </a>
     </span>
-  </div>
+  </Label>
 );
 
 function App() {
@@ -234,20 +228,23 @@ function App() {
         />
       </Row>
 
-      <div className="App" style={{ height: "5000vh" }}>
+      <div
+        className="App"
+        style={{ maxWidth: "1190px", margin: "auto", height: "500vh" }}
+      >
         <Row>
           <Col
             xxl={8}
             xl={10}
             lg={12}
-            md={12}
+            md={24}
             sm={24}
             xs={24}
             style={{ padding: 32 }}
           >
             <ImageGallery />
           </Col>
-          <Col xxl={16} xl={14} lg={12} md={12} sm={24} xs={24}>
+          <Col xxl={16} xl={14} lg={12} md={24} sm={24} xs={24}>
             <h1 className="wbro-product-detail-product-name">{group.title}</h1>
             <FeedbackIndicator rate={3} count={2} />
             <Divider type="vertical" />
@@ -269,8 +266,8 @@ function App() {
         <Row>
           <TabMenu />
         </Row>
-        <Row>
-          <Description />
+        <Row style={{ width: "100%" }}>
+          <Description className="description" description={"😄"} />
         </Row>
       </div>
     </div>

@@ -28,13 +28,14 @@ export default class ImageGallery extends Component {
         lazyLoad={true}
         showFullscreenButton={false}
         thumbnailPosition="bottom"
+        thumbnailClass="thumbnail-hiddable"
         renderItem={({ original }, index) => (
           <ReactImageMagnify
             style={{ overflow: "auto" }}
             key={index}
             enlargedImagePosition="over"
             smallImage={{ alt: "broken", src: original, isFluidWidth: true }}
-            largeImage={{ src: original, width: 1000, height: 1000 }}
+            largeImage={{ src: original, width: 2000, height: 2000 }}
           />
         )}
       />

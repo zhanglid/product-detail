@@ -1,7 +1,8 @@
 .wbro-product-detail-nav-container {
   display: block;
-  overflow: auto;
-  height: 43px;
+  overflow-x: auto;
+  height: 45px;
+  overflow-y: hidden;
   .nav {
     padding-left: 0;
     margin-bottom: 0;
@@ -10,6 +11,7 @@
     display: inline-flex;
     border-bottom: 2px solid rgb(8, 151, 156);
     overflow-x: auto;
+    overflow-y: hidden;
     background-color: white;
     z-index: 1;
   }
@@ -58,4 +60,5 @@
 .wbro-product-detail-nav-fixed {
   position: fixed;
   top: 0px;
+  width: 1188px;
 }

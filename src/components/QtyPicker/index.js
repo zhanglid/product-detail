@@ -44,10 +44,10 @@ export default class QtyPicker extends Component {
   };
 
   render() {
-    const { value = 0, max } = this.props;
+    const { value = 0, max, ...rest } = this.props;
     return (
-      <React.Fragment className="qtypicker-control">
-        <div className="qtypicker">
+      <div className="qtypicker-control">
+        <div className="qtypicker" {...rest}>
           <a onClick={e => this.handleOnChange(e, value - 1)} className = "amount-down">-</a>
           <input
             ref={this.inputRef}
@@ -61,7 +61,7 @@ export default class QtyPicker extends Component {
             <Alert message={this.state.alertMessage} type="warning" />
           </div>
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,25 +1,25 @@
-.wbro-product-detail-tag{
-    cursor:pointer;
-    border-radius: 4px;
-    background-color: white;
-    padding: 5px 10px;
-    margin: 0px 4px 8px 4px;
-    border:1px solid #ccc;
-    display:inline-block;
-    border: 1px solid #ccc
-  }
+.wbro-product-detail-tag {
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin: 0;
+  border: 1px solid #ccc;
+}
 
-  .wbro-product-detail-tag.active{
-    cursor:pointer;
-    border-radius: 4px;
-    background-color: white;
-    padding: 5px 10px;
-    margin: 0px 4px 8px 4px;
-    border:1px solid #ccc;
-    display:inline-block;
-    border: 3px solid #08979c
-  }
+.wbro-product-detail-tag.active {
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: white;
+  padding: 5px 10px;
+  margin: 0px 4px 8px 4px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border: 3px solid #08979c;
+}
 
-  .wbro-product-detail-tag:hover {
-    background-color: #89bcbc;
-  }
+.wbro-product-detail-tag:hover {
+  background-color: #89bcbc;
+}

@@ -25,12 +25,22 @@ export default class TabMenu extends React.Component {
     this.updateFixedStatus();
   };
 
+  setNavPosition = () => {
+    const currentPos =
+      this.navRef.current.getBoundingClientRect().top + window.scrollY;
+    if (currentPos !== this.state.navOffset) {
+      this.setState({
+        navOffset: currentPos
+      });
+    }
+  };
+
+  componentDidUpdate() {
+    this.setNavPosition();
+  }
+
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
-    this.setState({
-      navOffset:
-        this.navRef.current.getBoundingClientRect().top + window.scrollY
-    });
     this.updateFixedStatus();
   }
 
@@ -40,22 +50,25 @@ export default class TabMenu extends React.Component {
 
   render() {
     return (
-        <div className="wbro-product-detail-nav-container clearfix" ref={this.navRef}>
-          <Nav
-            bsStyle="tabs"
-            activeKey="1"
-            onSelect={k => this.handleSelect(k)}
-            className={
-              "wbro-product-detail-nav" +
-              (this.state.fixed ? " wbro-product-detail-nav-fixed" : "")
-            }
-          >
-            <NavItem eventKey="1">Product Detail</NavItem>
-            <NavItem eventKey="2">Feedback (147)</NavItem>
-            <NavItem eventKey="3">Shipping & Payment</NavItem>
-            <NavItem eventKey="4">Seller Guarantees</NavItem>
-          </Nav>
-        </div>
+      <div
+        className="wbro-product-detail-nav-container clearfix"
+        ref={this.navRef}
+      >
+        <Nav
+          bsStyle="tabs"
+          activeKey="1"
+          onSelect={k => this.handleSelect(k)}
+          className={
+            "wbro-product-detail-nav" +
+            (this.state.fixed ? " wbro-product-detail-nav-fixed" : "")
+          }
+        >
+          <NavItem eventKey="1">Product Detail</NavItem>
+          <NavItem eventKey="2">Feedback (147)</NavItem>
+          <NavItem eventKey="3">Shipping & Payment</NavItem>
+          <NavItem eventKey="4">Seller Guarantees</NavItem>
+        </Nav>
+      </div>
     );
   }
 }

@@ -21,6 +21,9 @@
   }
 
   input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     width: 62px;
     height: 34px;
     line-height: 34px;
@@ -28,6 +31,8 @@
     border-width: 1px;
     border-style: solid;
     border-color: #e5e5e5;
+    border-radius: 0%;
+    box-shadow: 0;
   }
 
   a:hover {
