@@ -1,0 +1,61 @@
+.wbro-product-detail-nav-container {
+  display: block;
+  overflow: auto;
+  height: 43px;
+  .nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    background-color: white;
+    display: inline-flex;
+    border-bottom: 2px solid rgb(8, 151, 156);
+    overflow-x: auto;
+    background-color: white;
+    z-index: 1;
+  }
+  .nav-tabs li {
+    display: flex;
+    margin-bottom: -2px;
+    white-space: nowrap;
+  }
+
+  .nav > li.active > a {
+    background-color: rgb(8, 151, 156);
+  }
+
+  .nav li.active a {
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav-tabs > li > a {
+    margin-right: 2px;
+    border: 1px solid transparent;
+    color: rgb(8, 151, 156);
+  }
+
+  .nav li a {
+    padding: 10px 15px;
+    text-decoration: none;
+  }
+}
+
+.wbro-product-detail-nav {
+  // position: absolute;
+  width: 100%;
+  overflow: auto;
+}
+
+.wbro-product-detail-nav::-webkit-scrollbar {
+  width: 0px; /* remove scrollbar space */
+  background: transparent; /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+.wbro-product-detail-nav:-webkit-scrollbar-thumb {
+  background: #ff0000;
+}
+
+.wbro-product-detail-nav-fixed {
+  position: fixed;
+  top: 0px;
+}

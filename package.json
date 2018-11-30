@@ -1,0 +1,33 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "antd": "3.10.9",
+    "lodash": "^4.17.11",
+    "node-sass": "^4.10.0",
+    "numeral": "^2.0.6",
+    "react": "16.5.2",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "16.5.2",
+    "react-image-gallery": "0.8.12",
+    "react-image-magnify": "^2.7.4",
+    "react-scripts": "2.0.3",
+    "reactstrap": "^6.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

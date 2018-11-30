@@ -1,0 +1,131 @@
+.payment-logo-method {
+  padding-inline-start:0px;
+}
+.payment-logo-method li {
+    float: left;
+    height: 25px;
+    width: 50px;
+    list-style: none;
+    margin: 0 10px 8px 0;
+    background: url(./payment.png)
+      no-repeat 0 0;
+  }
+  
+  .payment-logo-method li.payment-maestro,
+  .payment-type-list li.pt-maestro {
+    background-position: -100px 0;
+    width: 34px;
+  }
+  .payment-logo-method li.payment-sofortbanking,
+  .payment-type-list li.pt-sofortbanking {
+    background-position: -150px 0;
+    width: 62px;
+  }
+  .payment-logo-method li.payment-mastercard,
+  .payment-type-list li.pt-mastercard {
+    background-position: -250px 0;
+    width: 34px;
+  }
+  .payment-logo-method li.payment-tef,
+  .payment-type-list li.pt-tef {
+    background-position: -350px 0;
+    width: 63px;
+  }
+  .payment-logo-method li.payment-casein,
+  .payment-type-list li.pt-casein {
+    background-position: 0 -50px;
+    width: 82px;
+  }
+  .payment-logo-method li.payment-ideal,
+  .payment-type-list li.pt-ideal {
+    background-position: -150px -150px;
+    width: 24px;
+  }
+  .payment-logo-method li.payment-mp,
+  .payment-type-list li.pt-mp {
+    background-position: 0 -150px;
+    width: 78px;
+  }
+  .payment-logo-method li.payment-balance,
+  .payment-type-list li.pt-balance {
+    background-position: -300px -150px;
+    width: 91px;
+  }
+  .payment-logo-method li.payment-p24,
+  .payment-type-list li.pt-p24 {
+    background-position: -200px -150px;
+    width: 60px;
+  }
+  .payment-logo-method li.payment-qiwi,
+  .payment-type-list li.pt-qiwi {
+    background-position: -400px -100px;
+    width: 55px;
+  }
+  .payment-logo-method li.payment-yandex,
+  .payment-type-list li.pt-yandex {
+    background-position: -20px -99px;
+    width: 32px;
+  }
+  .payment-logo-method li.payment-cash-in-terminal,
+  .payment-type-list li.pt-cash-in-terminal {
+    background-position: -365px -195px;
+    width: 98px;
+  }
+  .payment-logo-method li.payment-safetypay,
+  .payment-type-list li.pt-safetypay {
+    background-position: -350px -50px;
+    width: 90px;
+  }
+  .payment-logo-method li.payment-visa,
+  .payment-type-list li.pt-visa {
+    background-position: -200px -97px;
+    width: 50px;
+  }
+  .payment-logo-method li.payment-webmoney,
+  .payment-type-list li.pt-webmoney {
+    background-position: 0 -200px;
+    width: 80px;
+  }
+  .payment-logo-method li.payment-tt,
+  .payment-type-list li.pt-tt {
+    background-position: -150px -50px;
+    width: 65px;
+  }
+  .payment-logo-method li.payment-boleto,
+  .payment-type-list li.pt-boleto {
+    background-position: -250px -50px;
+    width: 36px;
+  }
+  .payment-logo-method li.payment-doku,
+  .payment-type-list li.pt-doku {
+    background-position: -300px -100px;
+    width: 58px;
+  }
+  .payment-logo-method li.payment-giropay,
+  .payment-type-list li.pt-giropay {
+    background-position: -100px -100px;
+    width: 46px;
+  }
+  .payment-logo-method li.payment-ban,
+  .payment-type-list li.pt-ban {
+    background-position: -300px -200px;
+    width: 32px;
+    height: 20px;
+  }
+  .payment-logo-method li.payment-amex,
+  .payment-type-list li.pt-amex {
+    background-position: -450px 0;
+    width: 26px;
+  }
+  .payment-logo-method li.payment-mir,
+  .payment-type-list li.pt-mir {
+    background-position: -212px -200px;
+    width: 58px;
+  }
+  .payment-logo-method li.payment-paypal,
+  .payment-type-list li.pt-paypal {
+    background-position: -100px -200px;
+    width: 74px;
+    height: 20px;
+  }
+  
