@@ -17,8 +17,6 @@
   border-radius: 4px;
   background-color: white;
   padding: 3px 9px;
-  // margin: 0px 4px 8px 4px;
-  border: 1px solid #ccc;
   display: inline-block;
   border: 3px solid #08979c;
 }
@@ -27,7 +25,14 @@
   @extend %taghover;
 }
 
-.wbro-product-detail-tag:hover {
-  @extend %taghover;
-  background-color: #a5e4e4;
+@media (hover: hover) {
+  .wbro-product-detail-tag:hover {
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: white;
+    padding: 3px 9px;
+    display: inline-block;
+    border: 3px solid #08979c;
+    background-color: #a5e4e4;
+  }
 }

@@ -3,6 +3,7 @@
   overflow-x: auto;
   height: 45px;
   overflow-y: hidden;
+
   .nav {
     padding-left: 0;
     margin-bottom: 0;
@@ -58,6 +59,7 @@
   position: fixed;
   top: 0px;
   transition: color 0s;
+  width: 1196px;
 
   li.active > a {
     transition: color 0s;

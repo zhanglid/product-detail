@@ -23,7 +23,8 @@ import {
   breadcrumbSelector,
   activeTabKeySelector,
   priceAreaInfoSelector,
-  brandSelector
+  brandSelector,
+  sellerSelector
 } from "./selectors";
 
 import "./styles.css";
@@ -71,15 +72,15 @@ const LinedNumberIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`${num} people linked`}</span>
 );
 
-const _BrandIndicator = ({ brand, ...rest }) =>
-  brand ? (
-    <span style={{ color: "grey" }} {...rest}>{`Brand: ${brand}`}</span>
+const _SellerIndicator = ({ seller, ...rest }) =>
+  seller ? (
+    <span style={{ color: "grey" }} {...rest}>{`By ${seller}`}</span>
   ) : (
     <span />
   );
 
-const BrandIndicator = connect(state => ({ brand: brandSelector(state) }))(
-  _BrandIndicator
+const SellerIndicator = connect(state => ({ seller: sellerSelector(state) }))(
+  _SellerIndicator
 );
 
 const LinkedIndicator = () => (
@@ -178,8 +179,6 @@ const _ProductPriceArea = ({
 
 const ProductPriceArea = connect(priceAreaInfoSelector)(_ProductPriceArea);
 
-const Shipping = () => <Label className="wbro-shipping-po" />;
-
 const ReturnPolicy = () => (
   <Label className="wbro-product-detail-padding-control" label="Return Policy">
     <span>
@@ -213,6 +212,10 @@ const BuyerProtection = () => (
   </Row>
 );
 
+const LinkToEbayButton = ({ ...rest }) => (
+  <button {...rest}>Link to eBay</button>
+);
+
 const Actions = () => (
   <Label className="wbro-product-detail-padding-control">
     <Row className="wbro-product-detail-add-to-cart-button-row">
@@ -220,9 +223,7 @@ const Actions = () => (
         <button className="product-detail-button add-to-cart">
           Add to cart
         </button>
-        <button className="product-detail-button link-to-ebay">
-          Link to eBay
-        </button>
+        <LinkToEbayButton className="product-detail-button link-to-ebay" />
       </Col>
     </Row>
     <span className="wbro-product-detail-add-wishlist-action">
@@ -247,21 +248,18 @@ const ActionsFixed = favorite => (
     <button className="product-detail-button add-to-cart button-fixed-flex-grow">
       Add to cart
     </button>
-    <button className="product-detail-button link-to-ebay button-fixed-flex-grow">
-      Link to eBay
-    </button>
+    <LinkToEbayButton className="product-detail-button link-to-ebay button-fixed-flex-grow" />
   </div>
 );
 
 class _App extends React.Component {
   componentDidMount() {
     this.props.fetchGroup();
+    this.props.fetchCart();
   }
 
   render() {
     const { breadcrumb, tabKey } = this.props;
-    console.log("this.props: ", this.props, this.state, breadcrumb);
-
     return (
       <div style={{ backgroundColor: "#eee" }}>
         <Row style={{ height: "64px", backgroundColor: "blue" }}>
@@ -275,71 +273,68 @@ class _App extends React.Component {
           className="App"
           style={{
             maxWidth: "1198px",
-            margin: "auto",
-            height: "500vh",
-            backgroundColor: "white",
-            border: "1px solid #e9e9e9"
+            margin: "auto"
           }}
         >
-          <Row>
-            <Col
-              xl={10}
-              lg={12}
-              md={24}
-              sm={24}
-              xs={24}
-              className="image-gallery-container"
-              style={{ height: "100%" }}
-            >
-              <FloatView>
-                <ImageGallery />
-              </FloatView>
-            </Col>
-            <Col xl={14} lg={12} md={24} sm={24} xs={24}>
-              <h1 className="wbro-product-detail-product-name">
-                WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power
-                Control Socket, Remote Control Your Household Equipment from
-                Everywhere, No Hub Required, Works with Amazon Alexa and other
-                smart assistants (4 Packs)
-              </h1>
-              <FeedbackIndicator rate={3} count={2} />
-              <Divider type="vertical" />
-              <OrderNumIndicator num={111} />
-              <Divider type="vertical" />
-              <LinedNumberIndicator num={120} />
-              <Divider type="vertical" />
-              <BrandIndicator />
-              {/* {!this.props.linked && 
+          <div className="product-detail-card product-detail-upper-container">
+            <Row>
+              <Col
+                xl={10}
+                lg={12}
+                md={24}
+                sm={24}
+                xs={24}
+                className="image-gallery-container"
+                style={{ height: "100%" }}
+              >
+                <FloatView>
+                  <ImageGallery />
+                </FloatView>
+              </Col>
+              <Col xl={14} lg={12} md={24} sm={24} xs={24}>
+                <h1 className="wbro-product-detail-product-name">
+                  WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power
+                  Control Socket, Remote Control Your Household Equipment from
+                  Everywhere, No Hub Required, Works with Amazon Alexa and other
+                  smart assistants (4 Packs)
+                </h1>
+                <FeedbackIndicator rate={3} count={2} />
+                <Divider type="vertical" />
+                <OrderNumIndicator num={111} />
+                <Divider type="vertical" />
+                <LinedNumberIndicator num={120} />
+                <Divider type="vertical" />
+                <SellerIndicator />
+                {/* {!this.props.linked && 
               <div>
               <Divider type="vertical" />
               <LinkedIndicator />
               </div>
               } */}
-              <ProductPriceArea
-                // activity={true}
-                price={[1.11, 2.22]}
-                delta={-0.05}
-                tags={["HOT", "DEAL"]}
-              />
-              <div className="buynowform-container">
-                <BuyNowForm />
-              </div>
-              <Actions />
-              <ActionsFixed favorite={true} />
-              <ReturnPolicy />
-              <Payment />
-              <BuyerProtection />
-            </Col>
-          </Row>
-          <Row>
-            <TabMenu />
-          </Row>
-          <Row style={{ width: "100%" }}>
-            {tabKey === "1" && (
-              <Description className="description" description={"😄"} />
-            )}
-            {tabKey === "2" && <SellerInfo className="description" />}
-          </Row>
+                <ProductPriceArea />
+                <div className="buynowform-container">
+                  <BuyNowForm />
+                </div>
+                <Actions />
+                <ActionsFixed favorite={true} />
+                <ReturnPolicy />
+                <Payment />
+                <BuyerProtection />
+              </Col>
+            </Row>
+          </div>
+
+          <div className="product-detail-card product-detail-lower-container">
+            <Row>
+              <TabMenu />
+            </Row>
+            <Row style={{ width: "100%" }}>
+              {tabKey === "1" && (
+                <Description className="description" description={"😄"} />
+              )}
+              {tabKey === "2" && <SellerInfo className="description" />}
+            </Row>
+          </div>
         </div>
       </div>
     );
@@ -351,8 +346,11 @@ const mapState = state => ({
   tabKey: activeTabKeySelector(state)
 });
 
-const mapDispatch = ({ productDetailView: { fetchGroupAsync } }) => ({
-  fetchGroup: fetchGroupAsync
+const mapDispatch = ({
+  productDetailView: { fetchGroupAsync, fetchCartAsync }
+}) => ({
+  fetchGroup: fetchGroupAsync,
+  fetchCart: fetchCartAsync
 });
 
 const App = connect(

@@ -1,8 +1,15 @@
+import { get } from "lodash";
 import group from "../mock/group.json";
+import cart from "../mock/cart.json";
 
 const fetchGroup = async () => {
   await new Promise(resolve => setTimeout(resolve, 500));
   return group;
+};
+
+const fetchCart = async () => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return cart;
 };
 
 const selectBreadcrumb = category => {
@@ -34,13 +41,29 @@ export const productDetailView = {
       linked: false,
       view: null,
       images: [],
-      tags: []
+      tags: [],
+      seller: {}
     },
     cart: {},
     activeTabKey: "1",
     loading: true
   },
   reducers: {
+    setCart(state, cart) {
+      return {
+        ...state,
+        cart: get(cart, "warehouses", []).reduce(
+          (result, { items }) => ({
+            ...result,
+            ...items.reduce(
+              (c, { item, qty }) => ({ ...c, [item._id]: qty }),
+              {}
+            )
+          }),
+          {}
+        )
+      };
+    },
     toggleFavorite(state) {
       return {
         ...state,
@@ -90,7 +113,8 @@ export const productDetailView = {
           view: payload.view || 0,
           images: payload.image ? [payload.image] : [],
           tags: payload.tags || [],
-          brand: payload.brand || null
+          brand: payload.brand || null,
+          seller: payload.seller || {}
         }
       };
     }
@@ -103,6 +127,10 @@ export const productDetailView = {
     async fetchGroupAsync() {
       const group = await fetchGroup();
       dispatch.productDetailView.setGroup(group);
+    },
+    async fetchCartAsync() {
+      const cart = await fetchCart();
+      dispatch.productDetailView.setCart(cart);
     }
   })
 };

@@ -4,12 +4,12 @@ import _VariationTag from "../VariationTag";
 import QtyPicker from "../QtyPicker";
 import numeral from "numeral";
 import "./style.scss";
-import FreatureFilter from "../FeatureFilter";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import {
   variationExpandedSelector,
-  activeVariationIdSelector
+  activeVariationIdSelector,
+  cartSelector
 } from "../../selectors";
 
 const variationMapStateToProps = (state, { _id }) => ({
@@ -26,6 +26,21 @@ const VariationTag = connect(
   variationMapStateToProps,
   variationMapDispatch
 )(_VariationTag);
+
+const _CartIndicator = ({ number, _id, ...rest }) =>
+  number ? (
+    <div {...rest}>
+      <span>({number}</span>
+      <span className="small-hidden"> in cart</span>
+      <span>)</span>
+    </div>
+  ) : (
+    <div />
+  );
+
+const CartIndicator = connect((state, { _id }) => ({
+  number: cartSelector(state)[_id]
+}))(_CartIndicator);
 
 const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
   <Row
@@ -82,9 +97,6 @@ export class QtyInputList extends Component {
 
     return (
       <List itemLayout="horizontal" loadMore={loadMore} {...rest}>
-        {/* <List.Item>
-          <FreatureFilter/>
-        </List.Item> */}
         <ListItem
           variation="variation"
           price="price"
@@ -119,11 +131,7 @@ export class QtyInputList extends Component {
                   <span>
                     {numeral(100).format("0,0") + " "}
                     <span className="small-hidden">avaliable</span>
-                    <div>
-                      <span>(4</span>
-                      <span className="small-hidden"> in cart</span>
-                      <span>)</span>
-                    </div>
+                    <CartIndicator _id={_id} />
                   </span>
                 )
               }

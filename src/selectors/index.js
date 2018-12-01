@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { uniq, get } from "lodash";
+import { isString } from "util";
 export const productDetailViewSelector = state => state.productDetailView;
 
 export const groupSelector = createSelector(
@@ -70,7 +71,8 @@ export const filterNameSelector = createSelector(
 
 export const priceAreaInfoSelector = createSelector(
   displayInfoSelector,
-  ({ price, tags, priceChange: delta }) => ({ price, tags, delta, delta })
+  groupSelector,
+  ({ price, priceChange: delta }, { tags }) => ({ price, tags, delta, delta })
 );
 
 export const brandSelector = createSelector(
@@ -78,7 +80,28 @@ export const brandSelector = createSelector(
   group => group.brand
 );
 
+export const sellerSelector = createSelector(
+  groupSelector,
+  ({ seller }) => get(seller, "profile.firstName")
+);
+
 export const activeVariationIdSelector = createSelector(
   productDetailViewSelector,
   view => view.activeVariationId
+);
+
+export const imagesSelector = createSelector(
+  displayInfoSelector,
+  info => {
+    const { images = [] } = info;
+    if (isString(images[0])) {
+      return images;
+    }
+    return images.map(({ url }) => url);
+  }
+);
+
+export const cartSelector = createSelector(
+  productDetailViewSelector,
+  view => view.cart
 );

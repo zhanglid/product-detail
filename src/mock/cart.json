@@ -1,0 +1,334 @@
+{
+  "_id": "5b7c45830c61add71102b94b",
+  "warehouses": [
+    {
+      "area": { "_id": "5b47ecb6531ff45a35e027a6", "name": "City of Industry" },
+      "_id": "5b47ecc5531ff45a35e0282b",
+      "deliverers": [
+        {
+          "deliverer": {
+            "_id": "5b47ecb6531ff45a35e027a9",
+            "name": "UPS Delivery",
+            "active": true
+          }
+        },
+        {
+          "deliverer": {
+            "_id": "5b47ecb6531ff45a35e027aa",
+            "name": "USPS Delivery",
+            "active": true
+          }
+        },
+        {
+          "deliverer": {
+            "_id": "5b47ecb6531ff45a35e027ab",
+            "name": "FEDEX Ground Delivery",
+            "active": true
+          }
+        },
+        {
+          "deliverer": {
+            "_id": "5b47ecb6531ff45a35e027ac",
+            "name": "FEDEX Overnight Delivery",
+            "active": true
+          }
+        },
+        {
+          "deliverer": {
+            "_id": "5b47ecb6531ff45a35e027ad",
+            "name": "Pick-up",
+            "active": true
+          }
+        }
+      ],
+      "items": [
+        {
+          "item": {
+            "_id": "5bc4f573a7094e81e7ba24b3",
+            "brand": "Laoyi",
+            "code": "MMLDr9BcW",
+            "description": "iPad Tempered Glass for iPad 12.9",
+            "title": "iPad Tempered Glass for iPad 12.9",
+            "category": "5b47ecb6531ff45a35e0279e",
+            "group": "5bfc5252088a7f4e345b9471",
+            "carted": [
+              {
+                "cart": "5b7c45830c61add71102b94b",
+                "rma": false,
+                "qty": 1,
+                "timestamp": "2018-12-01T04:28:08.550Z"
+              }
+            ],
+            "area": {
+              "_id": "5b47ecb6531ff45a35e027a6",
+              "name": "City of Industry"
+            },
+            "warehouse": {
+              "address": {
+                "line1": "Bay 3",
+                "line2": "13060 Temple Ave",
+                "city": "City of Industry",
+                "state": "CA",
+                "zip": "91745",
+                "country": "usa"
+              },
+              "restock_start_charge": 0,
+              "active": false,
+              "deleted": false,
+              "restock_weight_charge": [],
+              "restock_box_charge": [],
+              "_id": "5b47ecc5531ff45a35e0282b",
+              "updatedAt": "2018-09-20T22:43:50.012Z",
+              "createdAt": "2018-07-13T00:05:25.339Z",
+              "code": "F402",
+              "name": "GCE",
+              "description": "GCE warehouse at City of Industry",
+              "owner": "5b47ecc2531ff45a35e0280b",
+              "storage": "100000 ft2",
+              "company": "GCE",
+              "area": "5b47ecb6531ff45a35e027a6",
+              "storage_charge": "20",
+              "delivery_charge": "0",
+              "phoneNumber": "+19092184744",
+              "material_charge": [
+                {
+                  "_id": "5ba2bf2cd50611ceae49a451",
+                  "volume": 100,
+                  "fee": 0.0001
+                }
+              ],
+              "package_charge": [
+                { "_id": "5ba2bf2cd50611497949a453", "weight": 3, "fee": 0.7 },
+                {
+                  "_id": "5ba2bf2cd506115a8e49a452",
+                  "weight": 100,
+                  "fee": 0.0001
+                }
+              ],
+              "sku_charge": [
+                { "_id": "5ba2bf2cd506116c0549a455", "weight": 1, "fee": 0.3 },
+                { "_id": "5ba2bf2cd50611b57a49a454", "weight": 100, "fee": 2 }
+              ],
+              "deliverers": [
+                {
+                  "default": false,
+                  "_id": "5ba422a64df4c92ea3317d63",
+                  "deliverer": {
+                    "active": true,
+                    "_id": "5b47ecb6531ff45a35e027a9",
+                    "updatedAt": "2018-07-13T22:52:46.198Z",
+                    "createdAt": "2018-07-13T00:05:10.168Z",
+                    "name": "UPS Delivery",
+                    "source": "4px",
+                    "location": "5b47ecb6531ff45a35e027a5",
+                    "warehouseCode": "USLA",
+                    "carrierCode": "LAUPS",
+                    "productCode": "G9",
+                    "cargoType": "P",
+                    "__v": 0,
+                    "areaCode": "US"
+                  }
+                },
+                {
+                  "default": true,
+                  "_id": "5ba422a64df4c93d3b317d62",
+                  "deliverer": {
+                    "active": true,
+                    "_id": "5b47ecb6531ff45a35e027aa",
+                    "updatedAt": "2018-07-13T22:52:53.290Z",
+                    "createdAt": "2018-07-13T00:05:10.198Z",
+                    "name": "USPS Delivery",
+                    "source": "4px",
+                    "location": "5b47ecb6531ff45a35e027a5",
+                    "warehouseCode": "USLA",
+                    "carrierCode": "USPSPA",
+                    "productCode": "P3",
+                    "cargoType": "P",
+                    "__v": 0,
+                    "areaCode": "US"
+                  }
+                },
+                {
+                  "default": false,
+                  "_id": "5ba422a64df4c95bf6317d61",
+                  "deliverer": {
+                    "active": true,
+                    "_id": "5b47ecb6531ff45a35e027ab",
+                    "updatedAt": "2018-07-13T22:53:35.784Z",
+                    "createdAt": "2018-07-13T00:05:10.215Z",
+                    "name": "FEDEX Ground Delivery",
+                    "source": "4px",
+                    "location": "5b47ecb6531ff45a35e027a5",
+                    "warehouseCode": "USLA",
+                    "carrierCode": "USFEUSP",
+                    "productCode": "YC",
+                    "cargoType": "P",
+                    "__v": 0,
+                    "areaCode": "US"
+                  }
+                },
+                {
+                  "default": false,
+                  "_id": "5ba422a64df4c92d32317d60",
+                  "deliverer": {
+                    "active": true,
+                    "_id": "5b47ecb6531ff45a35e027ac",
+                    "updatedAt": "2018-07-13T22:53:40.629Z",
+                    "createdAt": "2018-07-13T00:05:10.231Z",
+                    "name": "FEDEX Overnight Delivery",
+                    "source": "4px",
+                    "location": "5b47ecb6531ff45a35e027a5",
+                    "warehouseCode": "USLA",
+                    "carrierCode": "USDDBPDPTD",
+                    "productCode": "YB",
+                    "cargoType": "P",
+                    "__v": 0,
+                    "areaCode": "US"
+                  }
+                },
+                {
+                  "default": false,
+                  "_id": "5ba422a64df4c9e080317d5f",
+                  "deliverer": {
+                    "active": true,
+                    "_id": "5b47ecb6531ff45a35e027ad",
+                    "updatedAt": "2018-07-13T00:05:10.240Z",
+                    "createdAt": "2018-07-13T00:05:10.240Z",
+                    "name": "Pick-up",
+                    "source": "other",
+                    "location": "5b47ecb6531ff45a35e027a5",
+                    "__v": 0
+                  }
+                }
+              ],
+              "categories": [
+                {
+                  "_id": "5ba2bf2cd50611e32049a45c",
+                  "category": "5b47ecb6531ff45a35e0279d"
+                },
+                {
+                  "_id": "5ba2bf2cd5061162ce49a45b",
+                  "category": "5b47ecb6531ff45a35e0279e"
+                },
+                {
+                  "_id": "5ba2bf2cd50611b71449a45a",
+                  "category": "5b47ecb6531ff45a35e0279f"
+                },
+                {
+                  "_id": "5ba2bf2cd50611a8d749a459",
+                  "category": "5b47ecb6531ff45a35e027a0"
+                },
+                {
+                  "_id": "5ba2bf2cd506117eac49a458",
+                  "category": "5b47ecb6531ff45a35e027a2"
+                },
+                {
+                  "_id": "5ba2bf2cd50611c65849a457",
+                  "category": "5b47ecb6531ff45a35e027a3"
+                },
+                {
+                  "_id": "5ba2bf2cd50611264d49a456",
+                  "category": "5b47ecb6531ff45a35e027a4"
+                }
+              ],
+              "__v": 0
+            },
+            "images": [
+              {
+                "_id": "5bfc581f088a7f1c4e5b96d9",
+                "url": "https://statics.lettopia.com/wirelessbro-images/5bfc5817088a7f04125b96cd_1543264286305_ipad-2017.png"
+              }
+            ],
+            "in_stock": 99,
+            "seller": "5b47ecb6531ff45a35e027b2",
+            "features": [
+              {
+                "feature": "model",
+                "value": "iPad 12.9",
+                "_id": "5bfc5817088a7fd3925b96ce"
+              }
+            ],
+            "price": [
+              {
+                "_id": "5bff14ceb8b9706100ecea1e",
+                "level": 0,
+                "value": 3.13,
+                "date": "2018-11-28T22:21:02.014Z",
+                "commission": 0.1
+              },
+              {
+                "_id": "5bff14ceb8b9704136ecea1d",
+                "level": 1,
+                "value": 3.33,
+                "date": "2018-11-28T22:21:02.014Z",
+                "commission": 0.1
+              },
+              {
+                "_id": "5bff14ceb8b9706ba4ecea1c",
+                "level": 2,
+                "value": 3.53,
+                "date": "2018-11-28T22:21:02.014Z",
+                "commission": 0.1
+              },
+              {
+                "_id": "5bff14ceb8b970ce6fecea1b",
+                "level": 3,
+                "value": 3.7300000000000004,
+                "date": "2018-11-28T22:21:02.014Z",
+                "commission": 0.1
+              }
+            ],
+            "packages": [
+              {
+                "_id": "5bfc5817088a7f809d5b96d4",
+                "qty": 100,
+                "package": {
+                  "sku": "AA05-TGP129-1",
+                  "upc": "691016321038",
+                  "unit": 1,
+                  "length": 1,
+                  "width": 1,
+                  "height": 1,
+                  "weight": 0.655
+                }
+              },
+              {
+                "_id": "5bfc5817088a7f7f3e5b96d3",
+                "qty": 0,
+                "package": {
+                  "sku": "AA05-TGP129-100",
+                  "upc": "691016321045",
+                  "unit": 100,
+                  "length": 10,
+                  "width": 10,
+                  "height": 10,
+                  "weight": 65.5
+                }
+              }
+            ],
+            "active": true,
+            "weight": 4
+          },
+          "code": "MMLDr9BcW",
+          "rma": false,
+          "qty": 1,
+          "price": 3.13,
+          "total": 3.13,
+          "commission": 0.1,
+          "seller": {
+            "_id": "5b47ecb6531ff45a35e027b2",
+            "organization": {
+              "_id": "5b47ecb9531ff45a35e027c1",
+              "name": "Laoyi"
+            },
+            "email": "aa05@wirelessbro.com",
+            "profile": { "firstName": "AA05", "lastName": "Laoyi" },
+            "createdAt": "2018-07-13T00:05:10.316Z"
+          },
+          "warehouse": "5b47ecc5531ff45a35e0282b"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2018-12-01T04:28:08.628Z"
+}
