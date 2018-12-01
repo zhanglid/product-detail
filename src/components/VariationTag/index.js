@@ -1,13 +1,13 @@
 import React, { PureComponent } from "react";
-import "./style.css";
+import "./style.scss";
 
 export default class VariationTag extends PureComponent {
   render() {
-    const { name, _id, active, ...rest } = this.props;
+    const { name, _id, active, onSelect, ...rest } = this.props;
     return (
       <span
-        className={`wbro-product-detail-tag` + (active ? "active" : "")}
-        onClick={() => this.handleClick(_id, name)}
+        className={`wbro-product-detail-tag` + (active ? " active" : "")}
+        onClick={() => onSelect(_id, name)}
         {...rest}
       >
         <span>{name}</span>

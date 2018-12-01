@@ -6,7 +6,6 @@ import "./style.scss";
 export default class QtyPicker extends Component {
   constructor(props) {
     super(props);
-    this.inputRef = React.createRef();
     this.state = {
       alertMessage: null
     };
@@ -22,15 +21,25 @@ export default class QtyPicker extends Component {
   handleOnChange = (e, nextValue) => {
     e.stopPropagation();
     e.preventDefault();
-    const { onChange, parser, max } = this.props;
-    const value = parser(nextValue);
+    const { input: inputProps, parser, max } = this.props;
+    const { value: originalValue, onChange } = inputProps;
+    let value = parser(nextValue);
+    if (isNaN(value)) {
+      value = originalValue;
+    }
     if (value > max) {
-      this.setState({ alertMessage: `Purchases are limited to ${max} piece` });
+      this.setState(
+        { alertMessage: `Purchases are limited to ${max} piece` },
+        () => {
+          setTimeout(() => this.setState({ alertMessage: null }), 3000);
+        }
+      );
     } else if (this.state.alertMessage !== null) {
       this.setState({ alertMessage: null });
     }
     const parsed = this.parseRange(value);
     onChange && onChange(parsed);
+    console.log(nextValue, "onchange");
   };
 
   parseRange = value => {
@@ -43,21 +52,46 @@ export default class QtyPicker extends Component {
     return value;
   };
 
+  handleCloseAlert = e => {
+    this.setState({ alertMessage: null });
+  };
+
   render() {
-    const { value = 0, max, ...rest } = this.props;
+    const { input: inputProps, meta, ...rest } = this.props;
+    console.log(inputProps.value, "value");
     return (
       <div className="qtypicker-control">
         <div className="qtypicker" {...rest}>
-          <a onClick={e => this.handleOnChange(e, value - 1)} className = "amount-down">-</a>
+          <a
+            onClick={e => this.handleOnChange(e, inputProps.value - 1)}
+            className="amount-down"
+          >
+            -
+          </a>
           <input
-            ref={this.inputRef}
-            value={value}
+            {...inputProps}
             onChange={e => this.handleOnChange(e, e.target.value)}
           />
-          <a onClick={e => this.handleOnChange(e, value + 1)} className = "amount-up">+</a>
+          <a
+            onClick={e => this.handleOnChange(e, inputProps.value + 1)}
+            className="amount-up"
+          >
+            +
+          </a>
         </div>
         {this.state.alertMessage && (
-          <div style={{ marginTop: 5, width: "300px" }}>
+          <div
+            id="maxAlert"
+            onClick={e => this.handleCloseAlert()}
+            className="alert"
+            style={{
+              marginTop: 36,
+              maxWidth: "175px",
+              right: -20,
+              position: "absolute",
+              zIndex: 1
+            }}
+          >
             <Alert message={this.state.alertMessage} type="warning" />
           </div>
         )}

@@ -1,0 +1,16 @@
+.sui-box-title {
+    background-color: #e9e9e9;
+    padding: 8px 0 8px 15px;
+    font-size: 14px;
+    margin: 14px;
+  }
+  
+  .sui-box-body {
+    margin: 14px;
+    padding: 10px;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  

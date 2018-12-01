@@ -27,10 +27,15 @@
   color: #ffffff;
   font-weight: 700;
   font-size: 18px;
+  background-color: #e62e04;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .wbro-product-detail-activity-banner-right {
   padding: 16px;
+  background-color: #fa8c16;
   color: #ffffff;
+  text-align: center;
   font-weight: 700;
   font-size: 18px;
 }
@@ -40,16 +45,21 @@
 }
 .wbro-product-detail-price-dollar {
   color: #08979c;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.wbro-product-detail-product-price-change {
+.wbro-product-detail-product-price-tags {
   display: inline-block;
-  margin: 5px 0 0 5px;
+  margin: 5px 0px 0 5px;
   background-color: #e62e04;
   color: #fff;
   line-height: 20px;
   padding: 0 5px;
+}
+
+.wbro-product-detail-product-price-tags.price {
+  margin: 5px 24px 0 5px;
 }
 .wbro-product-detail-add-to-cart-button-row {
   padding: 15px 0;
@@ -113,6 +123,126 @@
 .wbro-product-detail-qty-picker-avaiable {
   display: inline;
 }
+.image-gallery-container {
+  padding: 16px;
+  height:100%;
+}
+
+.wbro-product-detail-detail-action-bar-fixed-tool-bar {
+  display:none;
+}
+.button-fixed-flex-grow {
+  flex-grow:1; 
+  margin-left:16px;
+}
+.wbro-product-detail-action-favorite-button-fixed {
+  width: 40px;
+  height: 40px;
+  color: #ff7605;
+  border: 1px solid #ebebeb;
+  display: table-cell;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 400;
+}
+.wbro-product-detail-action-favorite-button-fixed:hover {
+  color:#FF912C;
+}
+.wbro-product-detail-product-event-tag{
+
+}
+
+.wbro-product-detail-product-event-tag{
+  margin:0;
+  padding:0;
+  /* position:absolute;
+  right:24px;
+  bottom:-12px; */
+  list-style:none;
+}
+.wbro-product-detail-product-event-tag li, .wbro-product-detail-product-event-tag a{
+  float:left;
+  height:24px;
+  line-height:24px;
+  position:relative;
+  font-size:16px;
+  /* font-family: 'Pacifico', cursive; */
+  top:3px;
+}
+.wbro-product-detail-product-event-tag a{
+margin-left:20px;
+padding:0 10px 0 12px;
+/* background:#E74C3C; */
+color:#fff;
+text-decoration:none;
+-moz-border-radius-bottomright:4px;
+-webkit-border-bottom-right-radius:4px;	
+border-bottom-right-radius:4px;
+-moz-border-radius-topright:4px;
+-webkit-border-top-right-radius:4px;	
+border-top-right-radius:4px;	
+} 
+.wbro-product-detail-product-event-tag a:before{
+content:"";
+float:left;
+position:absolute;
+top:0;
+left:-12px;
+width:0;
+height:0;
+/* border-color:transparent #E74C3C transparent transparent; */
+border-style:solid;
+border-width:12px 12px 12px 0;		
+}
+.wbro-product-detail-product-event-tag a:after{
+content:"";
+position:absolute;
+top:10px;
+left:0;
+float:left;
+width:4px;
+height:4px;
+-moz-border-radius:2px;
+-webkit-border-radius:2px;
+border-radius:2px;
+background:#fff;
+-moz-box-shadow:-1px -1px 2px #004977;
+-webkit-box-shadow:-1px -1px 2px #004977;
+box-shadow:-1px -1px 2px #004977;
+}
+
+.wbro-product-detail-product-event-tag-red {
+  background:#E74C3C;
+}
+.wbro-product-detail-product-event-tag-red:before{
+  border-color:transparent #E74C3C transparent transparent;
+}
+.wbro-product-detail-product-event-tag-yellow {
+  background:#F2CF66;
+}
+.wbro-product-detail-product-event-tag-yellow:before{
+  border-color:transparent #F2CF66 transparent transparent;
+}
+
+
+  
+
+@media only screen and (max-width: 992px) {
+  .wbro-product-detail-detail-action-bar-fixed-tool-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 100%;
+    height: 76px;
+    padding: 16px;
+    background-color: #FFF;
+    border-top: 1px solid #f2f2f2;
+    display: flex;
+  }
+
+}
 
 @media only screen and (max-width: 1200px) {
   .wbro-product-detail-media-screen-colon::before {
@@ -123,6 +253,9 @@
   }
   .wbro-product-detail-media-screen-title {
     font-weight: 900;
+  }
+  .image-gallery-container {
+    padding: 0;
   }
   .App {
     margin: 0px;
@@ -137,6 +270,14 @@
     font-weight: 700;
     vertical-align: baseline;
   }
+  .wbro-product-detail-product-price-tags.price {
+    margin-right: auto;
+  }
+  .small-hidden {
+    position: fixed;
+    visibility: hidden;
+  }
+
   .wbro-product-detail-qty-picker-avaiable {
     display: block;
   }
@@ -145,6 +286,7 @@
 .product-detail-button {
   width: 160px;
   height: 40px;
+  cursor:pointer;
 }
 
 .product-detail-button.add-to-cart {

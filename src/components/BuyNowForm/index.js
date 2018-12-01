@@ -1,73 +1,38 @@
 import React, { Component } from "react";
-import { Form, List, Row, Col, Icon } from "antd";
-import QtyPicker from "../QtyPicker";
 import Label from "../Label";
 import "./style.scss";
-import VariationTag from "../VariationTag";
-import numeral from "numeral";
-
-class BucketTagsSelect extends React.Component {
-  handleClick = _id => {
-    const { onChange, value } = this.props;
-    onChange && onChange(value === _id ? null : _id);
-  };
-
-  render() {
-    const { data = [], value, onChange, ...rest } = this.props;
-    const loadMore = (
-      <div className="bucket-tag-select indicator">
-        <a onClick={this.onLoadMore}>
-          <Icon type="down" />
-        </a>
-      </div>
-    );
-    return (
-      <List
-        itemLayout="horizontal"
-        dataSource={data}
-        loadMore={loadMore}
-        renderItem={({ name, in_stock = 100000, _id }, index) => (
-          <List.Item>
-            <Row type="flex" align="middle" className="variation-row">
-              <Col span={8}>
-                <VariationTag
-                  name={name}
-                  _id={_id}
-                  active={value === _id}
-                  key={index}
-                />
-              </Col>
-              <Col span={5}>5.00 $</Col>
-              <Col span={5}>
-                {in_stock === undefined
-                  ? ""
-                  : `${numeral(in_stock).format("0,0")} avaliable`}
-              </Col>
-              <Col span={6}>
-                <QtyPicker style={{float: 'right'}} />
-              </Col>
-            </Row>
-          </List.Item>
-        )}
-        {...rest}
-      />
-    );
-  }
-}
+import QtyInputList from "../QtyInputList";
+import FeatureFilter from "../FeatureFilter";
+import { connect } from "react-redux";
+import { variationsSelector, filterNameSelector } from "../../selectors";
+import { capitalize } from "lodash";
 
 export class BuyNowForm extends Component {
   render() {
-    const { variations = [], form } = this.props;
+    const { variations = [], filterName } = this.props;
     return (
-      <Form style={{ padding: "10px 20px 10px 20px" }}>
-        <Label label="Variation" style={{ lineHeight: "32px" }}>
-          {form.getFieldDecorator("variation")(
-            <BucketTagsSelect data={variations} />
-          )}
+      <div style={{ padding: "10px 20px 10px 20px" }}>
+        <Label label={capitalize(filterName)}>
+          <FeatureFilter />
         </Label>
-      </Form>
+        <Label
+          label={<span className="small-hidden">Variation</span>}
+          style={{ lineHeight: "32px" }}
+        >
+          <QtyInputList data={variations} />
+        </Label>
+      </div>
     );
   }
 }
 
-export default Form.create()(BuyNowForm);
+const mapState = state => ({
+  variations: variationsSelector(state),
+  filterName: filterNameSelector(state)
+});
+
+BuyNowForm.defaultProps = {
+  filterName: "Feature"
+};
+
+export default connect(mapState)(BuyNowForm);

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import ReactImageGallery from "react-image-gallery";
 import ReactImageMagnify from "react-image-magnify";
+import {Icon} from 'antd'
 import "react-image-gallery/styles/css/image-gallery.css";
+import "./style.scss";
 
 export default class ImageGallery extends Component {
   render() {
@@ -20,15 +22,15 @@ export default class ImageGallery extends Component {
       }
     ];
     return (
+      <div>
       <ReactImageGallery
         items={images}
-        showNav={false}
+        showNav={true}
         showIndex={true}
         showPlayButton={false}
         lazyLoad={true}
         showFullscreenButton={false}
         thumbnailPosition="bottom"
-        thumbnailClass="thumbnail-hiddable"
         renderItem={({ original }, index) => (
           <ReactImageMagnify
             style={{ overflow: "auto" }}
@@ -39,6 +41,7 @@ export default class ImageGallery extends Component {
           />
         )}
       />
+      </div>
     );
   }
 }

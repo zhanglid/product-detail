@@ -22,18 +22,15 @@
   }
 
   .nav > li.active > a {
-    background-color: rgb(8, 151, 156);
-  }
-
-  .nav li.active a {
-    text-decoration: none;
-    color: white;
+    font-weight: bolder;
+    opacity: 1;
   }
 
   .nav-tabs > li > a {
     margin-right: 2px;
     border: 1px solid transparent;
     color: rgb(8, 151, 156);
+    opacity: 0.8;
   }
 
   .nav li a {
@@ -60,5 +57,11 @@
 .wbro-product-detail-nav-fixed {
   position: fixed;
   top: 0px;
-  width: 1188px;
+  transition: color 0s;
+
+  li.active > a {
+    transition: color 0s;
+    background-color: rgb(8, 151, 156) !important;
+    color: white;
+  }
 }

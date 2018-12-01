@@ -43,6 +43,7 @@
   "isEbayListingEnabled": true,
   "isEbayRecommended": false,
   "view": 106,
+  "tags": ["HOT_SALE", "CLEARANCE"],
   "price": "3",
   "ebayTitle": "LCD for iPhone Generic IPHONE NEW WORLD GROUP",
   "ebayDescription": "<p style=\"text-align:center;\"><strong>LCD for iPhone Generic(AAA)_City of Industry</strong></p><div class=\"media-wrap image-wrap\"><img id=\"1536252668398_42\" title=\"未标题-1.png\" alt=\"未标题-1.png\" loop=\"\" autoplay=\"\" controls=\"\" src=\"https://storage.googleapis.com/wirelessbro-images/EbayDesc_1536252669158_未标题-1.png\"/></div><p></p>",
@@ -122,7 +123,7 @@
         },
         { "feature": "size", "value": "4.7", "_id": "5bc4f573a7094e4ad3ba24b4" }
       ],
-      "price": 3,
+      "price": 4,
       "priceChange": 0,
       "packages": [
         {
@@ -342,7 +343,7 @@
         },
         { "feature": "size", "value": "5.5", "_id": "5bc4f573a7094eed19ba249f" }
       ],
-      "price": 3,
+      "price": 5,
       "priceChange": 0,
       "packages": [
         {
@@ -562,7 +563,7 @@
         },
         { "feature": "size", "value": "4.0", "_id": "5bc4f573a7094e2747ba246e" }
       ],
-      "price": 3,
+      "price": 6,
       "priceChange": 0,
       "packages": [
         {
@@ -672,7 +673,7 @@
         },
         { "feature": "size", "value": "4.7", "_id": "5bc4f573a7094e4373ba2460" }
       ],
-      "price": 3,
+      "price": 7,
       "priceChange": 0,
       "packages": [
         {
