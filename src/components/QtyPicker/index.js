@@ -100,10 +100,11 @@ export default class QtyPicker extends Component {
   }
 }
 
+const renderField = field => <QtyPicker {...field} />;
 export const QtyPickerField = ({ productId, ...rest }) => (
   <Field
     name={"product-" + productId}
-    component={field => <QtyPicker {...field} />}
+    component={renderField}
     type="text"
     format={(value = 0) => parseFloat(value)}
     {...rest}

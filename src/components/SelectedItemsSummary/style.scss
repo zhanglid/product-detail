@@ -1,22 +1,55 @@
 .selected-summary-table {
   border: 1px solid gray;
+  position: absolute;
+  bottom: 64px;
+  width: 100%;
+  z-index: 3;
+  background-color: white;
+  box-shadow: 0 -3px 3px -3px #d5d5d5;
 
   .table-column-filter {
     font-weight: 600;
   }
 
   .selected-item:first-child {
-    margin-left: 0px;
     min-width: 150px;
   }
 
   .selected-item {
-    margin-left: 16px;
-    width: 50%;
+    margin-right: 16px;
+    display: inline-block;
+    white-space: nowrap;
   }
 
   td {
     border: 1px solid #e5e5e5;
     padding: 16px;
   }
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.selected-item-summary-title {
+  margin-top: 32px;
+  background-color: #f9f9f9;
+  font-size: 1.25rem;
+  padding: 16px;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.table-column-filter {
+  font-weight: bold;
+  width: 30%;
+}
+
+.table-column-filter-qty {
+  width: 30%;
+}
+
+
+.qty-indicator-tag {
+  width: 130px;
 }

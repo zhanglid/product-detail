@@ -11,14 +11,13 @@
 .bucket-tag-select.indicator {
   position: relative;
   left: 32px;
-  top: -1px;
   border-left: 1px solid #e8e8e8;
   border-right: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8;
   text-align: center;
   width: 64px;
   line-height: 24px;
-  z-index: 999;
+  z-index: 1;
   background-color: white;
 
   a {

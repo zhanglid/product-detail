@@ -68,7 +68,7 @@ const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
 const OrderNumIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`Sold: ${num}`}</span>
 );
-const LinedNumberIndicator = ({ num = 0 }) => (
+const LinkedNumberIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`${num} people linked`}</span>
 );
 
@@ -272,7 +272,6 @@ class _App extends React.Component {
         <div
           className="App"
           style={{
-            maxWidth: "80%",
             margin: "auto"
           }}
         >
@@ -302,7 +301,7 @@ class _App extends React.Component {
                 <Divider type="vertical" />
                 <OrderNumIndicator num={111} />
                 <Divider type="vertical" />
-                <LinedNumberIndicator num={120} />
+                <LinkedNumberIndicator num={120} />
                 <Divider type="vertical" />
                 <SellerIndicator />
                 {/* {!this.props.linked && 

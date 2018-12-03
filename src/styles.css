@@ -243,7 +243,7 @@
     content: "";
   }
   .wbro-product-detail-media-screen-colon {
-    font-weight:600;
+    font-weight: 600;
   }
   .wbro-product-detail-media-screen-title::before {
     content: "";
@@ -301,6 +301,8 @@
   background-color: rgba(8, 151, 156, 0.2);
   font-weight: 400;
   opacity: 0.8;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .clearfix {

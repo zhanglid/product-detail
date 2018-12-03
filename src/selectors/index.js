@@ -10,7 +10,9 @@ import {
   groupBy,
   sumBy
 } from "lodash";
+import { getFormValues } from "redux-form";
 import { isString } from "util";
+
 export const productDetailViewSelector = state => state.productDetailView;
 
 export const groupSelector = createSelector(
@@ -126,15 +128,12 @@ export const cartSelector = createSelector(
 );
 
 export const formSelector = state => state.form;
-export const buynowFormSelector = createSelector(
-  formSelector,
-  form => form.buynow
-);
+export const buynowFormSelector = state => getFormValues("buynow")(state);
 
 export const selectedItemsSelector = createSelector(
   buynowFormSelector,
   allVariationsSelector,
-  ({ values } = {}, variations) => {
+  (values = {}, variations) => {
     const detail = mapKeys(
       pickBy(values, (value, key) => /product-/.test(key)),
       (value, key) => /product-(.*)/.exec(key)[1]
@@ -154,6 +153,11 @@ export const selectedItemsSelector = createSelector(
       qty: sumBy(items, "qty")
     }));
   }
+);
+
+export const hasItemSelectedSelector = createSelector(
+  selectedItemsSelector,
+  (items = []) => items.length > 0
 );
 
 export const selectedItemsSummarySelector = createSelector(

@@ -132,7 +132,7 @@ export class QtyInputList extends Component {
               }
               input={
                 <span className="qty-input-field">
-                  <QtyPickerField productId={_id} />
+                  <QtyPickerField productId={_id} style={{width: '100%'}} />
                 </span>
               }
             />
@@ -155,9 +155,7 @@ const mapDispatch = ({ productDetailView: { setVariationsExpanded } }) => ({
   setExpanded: value => setVariationsExpanded(value)
 });
 
-export default reduxForm({ form: "buynow" })(
-  connect(
-    mapState,
-    mapDispatch
-  )(QtyInputList)
-);
+export default connect(
+  mapState,
+  mapDispatch
+)(QtyInputList);
