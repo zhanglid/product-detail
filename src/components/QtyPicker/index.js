@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Field } from "redux-form";
 import { Alert } from "antd";
 import "./style.scss";
 
@@ -39,7 +40,6 @@ export default class QtyPicker extends Component {
     }
     const parsed = this.parseRange(value);
     onChange && onChange(parsed);
-    console.log(nextValue, "onchange");
   };
 
   parseRange = value => {
@@ -58,7 +58,6 @@ export default class QtyPicker extends Component {
 
   render() {
     const { input: inputProps, meta, ...rest } = this.props;
-    console.log(inputProps.value, "value");
     return (
       <div className="qtypicker-control">
         <div className="qtypicker" {...rest}>
@@ -80,18 +79,7 @@ export default class QtyPicker extends Component {
           </a>
         </div>
         {this.state.alertMessage && (
-          <div
-            id="maxAlert"
-            onClick={e => this.handleCloseAlert()}
-            className="alert"
-            style={{
-              marginTop: 36,
-              maxWidth: "175px",
-              right: -20,
-              position: "absolute",
-              zIndex: 1
-            }}
-          >
+          <div className="alert" onClick={this.handleCloseAlert}>
             <Alert message={this.state.alertMessage} type="warning" />
           </div>
         )}
@@ -99,6 +87,17 @@ export default class QtyPicker extends Component {
     );
   }
 }
+
+const renderField = field => <QtyPicker {...field} />;
+export const QtyPickerField = ({ productId, ...rest }) => (
+  <Field
+    name={"product-" + productId}
+    component={renderField}
+    type="text"
+    format={(value = 0) => parseFloat(value)}
+    {...rest}
+  />
+);
 
 QtyPicker.defaultProps = {
   min: 0,

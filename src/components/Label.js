@@ -24,8 +24,8 @@ const Label = ({ label, children, ...rest }) => (
   <Row {...rest}>
     {label ? (
       <Col style={{ textAlign: "left" }} {...labelSize}>
-        {label}
-        <span className="wbro-product-detail-media-screen-colon" />
+        
+        <span className="wbro-product-detail-media-screen-colon" >{label}</span>
       </Col>
     ) : (
       <Col {...labelSize} />

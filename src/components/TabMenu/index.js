@@ -124,9 +124,9 @@ export class TabMenu extends React.Component {
         >
           <NavItem eventKey="1">Product Detail</NavItem>
           <NavItem eventKey="2">Seller</NavItem>
-          {/* <NavItem eventKey="2">Feedback (147)</NavItem>
-          <NavItem eventKey="3">Shipping & Payment</NavItem>
-          <NavItem eventKey="4">Seller Guarantees</NavItem> */}
+          <NavItem eventKey="3">Feedback (147)</NavItem>
+          <NavItem eventKey="4">Shipping & Payment</NavItem>
+          <NavItem eventKey="5">Seller Guarantees</NavItem>
         </Nav>
       </div>
     );

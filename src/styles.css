@@ -112,7 +112,7 @@
 .wbro-product-detail-buy-protection-info-list {
   padding-inline-start: 0px;
 }
-.wbro-product-detail-media-screen-colon::before {
+.wbro-product-detail-media-screen-colon::after {
   content: ":";
 }
 .wbro-product-detail-media-screen-title::before {
@@ -242,8 +242,11 @@
 }
 
 @media only screen and (max-width: 1200px) {
-  .wbro-product-detail-media-screen-colon::before {
+  .wbro-product-detail-media-screen-colon::after {
     content: "";
+  }
+  .wbro-product-detail-media-screen-colon {
+    font-weight: 600;
   }
   .wbro-product-detail-media-screen-title::before {
     content: "";
@@ -288,6 +291,13 @@
   width: 160px;
   height: 40px;
   cursor: pointer;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  outline: none;
+  border: none;
 }
 
 .product-detail-button.add-to-cart {
@@ -305,6 +315,8 @@
   background-color: rgba(8, 151, 156, 0.2);
   font-weight: 400;
   opacity: 0.8;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .clearfix {
@@ -324,5 +336,5 @@
 .product-detail-card {
   margin-top: 16px;
   background-color: white;
-  border: 1px solid #E8E8E8;
+  /* border: 1px solid #E8E8E8; */
 }

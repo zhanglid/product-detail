@@ -68,7 +68,7 @@ const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
 const OrderNumIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`Sold: ${num}`}</span>
 );
-const LinedNumberIndicator = ({ num = 0 }) => (
+const LinkedNumberIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`${num} people linked`}</span>
 );
 
@@ -261,7 +261,7 @@ class _App extends React.Component {
   render() {
     const { breadcrumb, tabKey } = this.props;
     return (
-      <div style={{ backgroundColor: "#eee" }}>
+      <div style={{ backgroundColor: "white" }}>
         <Row style={{ height: "64px", backgroundColor: "blue" }}>
           Hello CodeSandbox
         </Row>
@@ -272,7 +272,6 @@ class _App extends React.Component {
         <div
           className="App"
           style={{
-            maxWidth: "1198px",
             margin: "auto"
           }}
         >
@@ -303,7 +302,7 @@ class _App extends React.Component {
                 <span className = "wbro-product-detail-number-indicator">
                 <OrderNumIndicator num={111} />
                 <Divider type="vertical" />
-                <LinedNumberIndicator num={120} />
+                <LinkedNumberIndicator num={120} />
                 <Divider type="vertical" />
                 <SellerIndicator />
                 </span>
