@@ -50,23 +50,32 @@ const SelectedItemsSummaryRow = ({ filter, qty, items, ...rest }) => (
 );
 
 class _SelectedItemsSummary extends React.Component {
-  state = {
-    visible: false
-  };
-  toggleVisible = () => {
-    this.setState({ visible: !this.state.visible });
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  handleClickOutside = event => {
+    if (this.ref && !this.ref.current.contains(event.target)) {
+      this.props.hide();
+    }
   };
   render() {
-    const { items, qty, total, ...rest } = this.props;
+    const { items, qty, total, visible, ...rest } = this.props;
     return (
       <div {...rest}>
         <table
           {...rest}
-          className={
-            "selected-summary-table" + (this.state.visible ? "" : " invisible")
-          }
+          className={"selected-summary-table" + (visible ? "" : " invisible")}
         >
-          <tbody>
+          <tbody ref={this.ref}>
             {items.map(({ filter, items, qty = 0 }, index) => (
               <SelectedItemsSummaryRow
                 filter={filter}
@@ -86,8 +95,8 @@ class _SelectedItemsSummary extends React.Component {
           <Col>{qty} pcs</Col>
           <Col>{dollar(total)}</Col>
           <Col>
-            <a onClick={this.toggleVisible}>
-              View all <Icon type={this.state.visible ? "down" : "up"} />
+            <a onClick={this.props.toggleVisible}>
+              View all <Icon type={visible ? "down" : "up"} />
             </a>
           </Col>
         </Row>
@@ -96,8 +105,16 @@ class _SelectedItemsSummary extends React.Component {
   }
 }
 
-const SelectedItemsSummary = connect(selectedItemsSummarySelector)(
-  _SelectedItemsSummary
-);
+const mapDispatch = ({
+  productDetailView: { setSummaryInvisible, toggleSummaryVisible }
+}) => ({
+  hide: setSummaryInvisible,
+  toggleVisible: toggleSummaryVisible
+});
+
+const SelectedItemsSummary = connect(
+  selectedItemsSummarySelector,
+  mapDispatch
+)(_SelectedItemsSummary);
 
 export default SelectedItemsSummary;

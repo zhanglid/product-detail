@@ -147,7 +147,7 @@ export const selectedItemsSelector = createSelector(
     return toPairs(
       groupBy(Object.values(selectedDict).filter(({ qty }) => !!qty), "filter")
     ).map(([key, items]) => ({
-      items,
+      items: items.sort((a, b) => a.name > b.name),
       filter: key,
       total: sumBy(items, "total"),
       qty: sumBy(items, "qty")
@@ -160,7 +160,17 @@ export const hasItemSelectedSelector = createSelector(
   (items = []) => items.length > 0
 );
 
+export const summaryVisibleSelector = createSelector(
+  productDetailViewSelector,
+  view => view.summaryVisible
+);
 export const selectedItemsSummarySelector = createSelector(
   selectedItemsSelector,
-  items => ({ items, qty: sumBy(items, "qty"), total: sumBy(items, "total") })
+  summaryVisibleSelector,
+  (items, visible) => ({
+    visible,
+    items,
+    qty: sumBy(items, "qty"),
+    total: sumBy(items, "total")
+  })
 );

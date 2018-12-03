@@ -284,6 +284,13 @@
   width: 160px;
   height: 40px;
   cursor: pointer;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  outline: none;
+  border: none;
 }
 
 .product-detail-button.add-to-cart {

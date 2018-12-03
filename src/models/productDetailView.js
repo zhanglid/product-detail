@@ -22,6 +22,7 @@ const selectBreadcrumb = category => {
 
 export const productDetailView = {
   state: {
+    summaryVisible: false,
     filter: null,
     breadcrumb: [],
     variations: [],
@@ -93,6 +94,18 @@ export const productDetailView = {
         ...state,
         filter: payload,
         activeVariationId: null
+      };
+    },
+    toggleSummaryVisible(state) {
+      return {
+        ...state,
+        summaryVisible: !state.summaryVisible
+      };
+    },
+    setSummaryInvisible(state) {
+      return {
+        ...state,
+        summaryVisible: false
       };
     },
     setGroup(state, payload) {
