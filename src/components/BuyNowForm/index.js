@@ -6,6 +6,7 @@ import FeatureFilter from "../FeatureFilter";
 import { connect } from "react-redux";
 import { variationsSelector, filterNameSelector } from "../../selectors";
 import { capitalize } from "lodash";
+import SelectedItemsSummary from "../SelectedItemsSummary";
 
 export class BuyNowForm extends Component {
   render() {
@@ -20,6 +21,7 @@ export class BuyNowForm extends Component {
           style={{ lineHeight: "32px" }}
         >
           <QtyInputList data={variations} />
+          <SelectedItemsSummary />
         </Label>
       </div>
     );

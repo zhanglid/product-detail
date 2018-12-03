@@ -1,5 +1,15 @@
 import { createSelector } from "reselect";
-import { uniq, get } from "lodash";
+import {
+  toPairs,
+  uniq,
+  get,
+  mapKeys,
+  pickBy,
+  mapValues,
+  keyBy,
+  groupBy,
+  sumBy
+} from "lodash";
 import { isString } from "util";
 export const productDetailViewSelector = state => state.productDetailView;
 
@@ -34,22 +44,31 @@ export const featuresFiltersSelector = createSelector(
   view => uniq(view.variations.map(({ features }) => features[0].value))
 );
 
-export const variationsSelector = createSelector(
+export const allVariationsSelector = createSelector(
   productDetailViewSelector,
-  filterSelector,
-  (view, filter) => {
-    const variations = filter
-      ? view.variations.filter(({ features }) => features[0].value === filter)
-      : view.variations;
-    return variations
-      .map(({ features, _id }) => ({
+  view =>
+    view.variations
+      .map(({ price, features, _id }) => ({
         name: features
           .slice(1)
           .map(({ value }) => value)
           .join(" "),
+        features,
+        price,
+        filter: get(features, "[0].value"),
         _id
       }))
-      .sort((a, b) => (a.name > b.name ? 1 : -1));
+      .sort((a, b) => (a.name > b.name ? 1 : -1))
+);
+
+export const variationsSelector = createSelector(
+  allVariationsSelector,
+  filterSelector,
+  (allVariations, filter) => {
+    const variations = filter
+      ? allVariations.filter(variation => variation.filter === filter)
+      : allVariations;
+    return variations;
   }
 );
 
@@ -104,4 +123,40 @@ export const imagesSelector = createSelector(
 export const cartSelector = createSelector(
   productDetailViewSelector,
   view => view.cart
+);
+
+export const formSelector = state => state.form;
+export const buynowFormSelector = createSelector(
+  formSelector,
+  form => form.buynow
+);
+
+export const selectedItemsSelector = createSelector(
+  buynowFormSelector,
+  allVariationsSelector,
+  ({ values } = {}, variations) => {
+    const detail = mapKeys(
+      pickBy(values, (value, key) => /product-/.test(key)),
+      (value, key) => /product-(.*)/.exec(key)[1]
+    );
+    const variationsDict = keyBy(variations, "_id");
+    const selectedDict = mapValues(detail, (value, key) => ({
+      qty: value,
+      total: value * variationsDict[key].price,
+      ...variationsDict[key]
+    }));
+    return toPairs(
+      groupBy(Object.values(selectedDict).filter(({ qty }) => !!qty), "filter")
+    ).map(([key, items]) => ({
+      items,
+      filter: key,
+      total: sumBy(items, "total"),
+      qty: sumBy(items, "qty")
+    }));
+  }
+);
+
+export const selectedItemsSummarySelector = createSelector(
+  selectedItemsSelector,
+  items => ({ items, qty: sumBy(items, "qty"), total: sumBy(items, "total") })
 );

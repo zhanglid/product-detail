@@ -1,0 +1,22 @@
+.selected-summary-table {
+  border: 1px solid gray;
+
+  .table-column-filter {
+    font-weight: 600;
+  }
+
+  .selected-item:first-child {
+    margin-left: 0px;
+    min-width: 150px;
+  }
+
+  .selected-item {
+    margin-left: 16px;
+    width: 50%;
+  }
+
+  td {
+    border: 1px solid #e5e5e5;
+    padding: 16px;
+  }
+}

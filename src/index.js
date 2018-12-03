@@ -261,7 +261,7 @@ class _App extends React.Component {
   render() {
     const { breadcrumb, tabKey } = this.props;
     return (
-      <div style={{ backgroundColor: "#eee" }}>
+      <div style={{ backgroundColor: "white" }}>
         <Row style={{ height: "64px", backgroundColor: "blue" }}>
           Hello CodeSandbox
         </Row>
@@ -272,7 +272,7 @@ class _App extends React.Component {
         <div
           className="App"
           style={{
-            maxWidth: "1198px",
+            maxWidth: "80%",
             margin: "auto"
           }}
         >

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Field } from "redux-form";
 import { Alert } from "antd";
 import "./style.scss";
 
@@ -58,7 +59,6 @@ export default class QtyPicker extends Component {
 
   render() {
     const { input: inputProps, meta, ...rest } = this.props;
-    console.log(inputProps.value, "value");
     return (
       <div className="qtypicker-control">
         <div className="qtypicker" {...rest}>
@@ -99,6 +99,16 @@ export default class QtyPicker extends Component {
     );
   }
 }
+
+export const QtyPickerField = ({ productId, ...rest }) => (
+  <Field
+    name={"product-" + productId}
+    component={field => <QtyPicker {...field} />}
+    type="text"
+    format={(value = 0) => parseFloat(value)}
+    {...rest}
+  />
+);
 
 QtyPicker.defaultProps = {
   min: 0,

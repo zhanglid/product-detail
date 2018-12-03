@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { List, Row, Col, Icon } from "antd";
 import _VariationTag from "../VariationTag";
-import QtyPicker from "../QtyPicker";
+import { QtyPickerField } from "../QtyPicker";
+import { dollar } from "../utils";
 import numeral from "numeral";
-import "./style.scss";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import {
   variationExpandedSelector,
   activeVariationIdSelector,
   cartSelector
 } from "../../selectors";
+import "./style.scss";
 
 const variationMapStateToProps = (state, { _id }) => ({
   active: activeVariationIdSelector(state) === _id
@@ -82,18 +83,23 @@ export class QtyInputList extends Component {
     return data.length > displayLimit;
   };
 
+  toggleLoadMore = () => {
+    const { expanded } = this.props;
+    this.props.setExpanded(!expanded);
+  };
+
   render() {
     const { onChange, displayLimit, data: rawData, ...rest } = this.props;
 
     const expanded = this.props.expanded || !this.isExpandable();
     const data = !expanded ? rawData.slice(0, displayLimit) : rawData;
-    const loadMore = !expanded ? (
+    const loadMore = this.isExpandable() && (
       <div className="bucket-tag-select indicator">
-        <a onClick={this.props.onLoadMore}>
-          <Icon type="down" />
+        <a onClick={this.toggleLoadMore}>
+          <Icon type={expanded ? "up" : "down"} />
         </a>
       </div>
-    ) : null;
+    );
 
     return (
       <List itemLayout="horizontal" loadMore={loadMore} {...rest}>
@@ -108,22 +114,11 @@ export class QtyInputList extends Component {
           }
           className="list-title"
         />
-        {data.map(({ name, in_stock = 100000, _id }, index) => (
-          <List.Item
-            className="qty-input-list-row"
-            action={
-              <Field
-                name={_id}
-                style={{ float: "right", maxWidth: "100%" }}
-                component={field => <QtyPicker {...field.input} />}
-                type="text"
-                format={(value = 0) => parseFloat(value)}
-              />
-            }
-          >
+        {data.map(({ name, price, in_stock = 100000, _id }, index) => (
+          <List.Item className="qty-input-list-row">
             <ListItem
               variation={<VariationTag name={name} _id={_id} key={index} />}
-              price="$ 4.00 "
+              price={dollar(price)}
               qty={
                 in_stock === undefined ? (
                   ""
@@ -136,13 +131,9 @@ export class QtyInputList extends Component {
                 )
               }
               input={
-                <Field
-                  name={"product-" + _id}
-                  style={{ float: "right", maxWidth: "100%" }}
-                  component={field => <QtyPicker {...field} />}
-                  type="text"
-                  format={(value = 0) => parseFloat(value)}
-                />
+                <span className="qty-input-field">
+                  <QtyPickerField productId={_id} />
+                </span>
               }
             />
           </List.Item>
@@ -161,7 +152,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = ({ productDetailView: { setVariationsExpanded } }) => ({
-  onLoadMore: () => setVariationsExpanded(true)
+  setExpanded: value => setVariationsExpanded(value)
 });
 
 export default reduxForm({ form: "buynow" })(
