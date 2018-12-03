@@ -300,11 +300,13 @@ class _App extends React.Component {
                 </h1>
                 <FeedbackIndicator rate={3} count={2} />
                 <Divider type="vertical" />
+                <span className = "wbro-product-detail-number-indicator">
                 <OrderNumIndicator num={111} />
                 <Divider type="vertical" />
                 <LinedNumberIndicator num={120} />
                 <Divider type="vertical" />
                 <SellerIndicator />
+                </span>
                 {/* {!this.props.linked && 
               <div>
               <Divider type="vertical" />

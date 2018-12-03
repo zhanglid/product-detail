@@ -222,6 +222,9 @@
 .wbro-product-detail-product-event-tag-yellow:before {
   border-color: transparent #f2cf66 transparent transparent;
 }
+.wbro-product-detail-number-indicator {
+
+}
 
 @media only screen and (max-width: 992px) {
   .wbro-product-detail-detail-action-bar-fixed-tool-bar {
@@ -253,6 +256,10 @@
   }
   .App {
     margin: 0px;
+  }
+  .wbro-product-detail-number-indicator {
+    display:block;
+    padding:10px 20px 0;
   }
 }
 @media only screen and (max-width: 768px) {
