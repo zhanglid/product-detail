@@ -14,16 +14,24 @@ class QtyIndicator extends React.Component {
     };
   }
 
+  setHide = () => {
+    this.setState({ hover: false });
+  };
+
+  setVisible = () => {
+    this.setState({ hover: true });
+  };
+
   render() {
     const { qty, productId, ...rest } = this.props;
     return (
       <div className="qty-indicator-tag" {...rest}>
         {this.state.hover ? (
-          <span onMouseLeave={() => this.setState({ hover: false })}>
+          <span onMouseLeave={this.setHide}>
             <QtyPickerField productId={productId} />
           </span>
         ) : (
-          <span onMouseEnter={() => this.setState({ hover: true })}>
+          <span onClick={this.setVisible} onMouseEnter={this.setVisible}>
             {`    (${qty})`}
           </span>
         )}

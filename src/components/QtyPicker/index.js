@@ -40,7 +40,6 @@ export default class QtyPicker extends Component {
     }
     const parsed = this.parseRange(value);
     onChange && onChange(parsed);
-    console.log(nextValue, "onchange");
   };
 
   parseRange = value => {
@@ -80,18 +79,7 @@ export default class QtyPicker extends Component {
           </a>
         </div>
         {this.state.alertMessage && (
-          <div
-            id="maxAlert"
-            onClick={e => this.handleCloseAlert()}
-            className="alert"
-            style={{
-              marginTop: 36,
-              maxWidth: "175px",
-              right: -20,
-              position: "absolute",
-              zIndex: 1
-            }}
-          >
+          <div className="alert" onClick={this.handleCloseAlert}>
             <Alert message={this.state.alertMessage} type="warning" />
           </div>
         )}

@@ -1,7 +1,16 @@
+.qtypicker-control {
+  max-width: 130px;
+
+  .alert {
+    position: absolute;
+    z-index: 1;
+  }
+}
+
 .qtypicker {
   display: inline-flex;
-  max-width: 130px;
   height: 34px;
+  width: 100%;
   line-height: 34px;
   user-select: none;
 
@@ -17,13 +26,6 @@
     vertical-align: middle;
     line-height: 30px;
     min-width: 16px;
-  }
-
-  .alert {
-    margin-top: 5;
-    width: 300px;
-    position: absolute;
-    z-index: 1;
   }
 
   input {
