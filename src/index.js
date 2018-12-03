@@ -213,7 +213,7 @@ const BuyerProtection = () => (
 );
 
 const LinkToEbayButton = ({ ...rest }) => (
-  <button {...rest}>Link to eBay</button>
+  <button {...rest}>Drop Shipping</button>
 );
 
 const Actions = () => (
@@ -312,6 +312,7 @@ class _App extends React.Component {
               <LinkedIndicator />
               </div>
               } */}
+                <Divider className = "wbro-product-detail-devider-horizontal" />
                 <ProductPriceArea />
                 <div className="buynowform-container">
                   <BuyNowForm />

@@ -6,6 +6,7 @@ import { dollar } from "../utils";
 import numeral from "numeral";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
+import _ from 'lodash'
 import {
   variationExpandedSelector,
   activeVariationIdSelector,
@@ -73,6 +74,17 @@ const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
 );
 
 export class QtyInputList extends Component {
+
+  constructor(props) {
+    super(props);
+    this.navRef = React.createRef();
+    this.state = {
+      fixed: false,
+      navOffset: null,
+    };
+    this.deboucedSetState = _.debounce(this.setState, 5);
+  }
+
   handleClick = _id => {
     const { onChange, value } = this.props;
     onChange && onChange(value === _id ? null : _id);
@@ -87,6 +99,43 @@ export class QtyInputList extends Component {
     const { expanded } = this.props;
     this.props.setExpanded(!expanded);
   };
+  updateFixedStatus = () => {
+    const currentStatus = window.scrollY > this.state.navOffset;
+    
+    if (this.state.fixed !== currentStatus) {
+      this.setState({ fixed: currentStatus });
+    }
+  };
+
+  handleScroll = e => {
+    this.updateFixedStatus();
+  };
+
+  setNavPosition = () => {
+    const currentPos =
+      this.navRef.current.getBoundingClientRect().top + window.scrollY;
+    
+    if (currentPos !== this.state.navOffset) {
+      this.setState({
+        navOffset: currentPos
+      });
+    }
+  };
+
+
+  componentDidUpdate() {
+    this.setNavPosition();
+
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+    this.updateFixedStatus();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
   render() {
     const { onChange, displayLimit, data: rawData, ...rest } = this.props;
@@ -103,17 +152,19 @@ export class QtyInputList extends Component {
 
     return (
       <List itemLayout="horizontal" loadMore={loadMore} {...rest}>
-        <ListItem
-          variation="variation"
-          price="price"
-          qty={
-            <div>
-              <span>avaliable</span>
-              <div>(in cart)</div>
-            </div>
-          }
-          className="list-title"
-        />
+        <div ref={this.navRef} className={this.state.fixed ? "wbro-product-detail-table_col_fixed" : ""}>
+            <ListItem
+              variation = {<div style = {{paddingLeft:40,paddingTop:8}}>Variation</div>}
+              price="price"
+              qty={
+                <div style = {{paddingLeft:"15%"}}>
+                  <span>avaliable</span>
+                  <div>(in cart)</div>
+                </div>
+              }
+              className="list-title"
+            />
+        </div>
         {data.map(({ name, price, in_stock = 100000, _id }, index) => (
           <List.Item className="qty-input-list-row">
             <ListItem

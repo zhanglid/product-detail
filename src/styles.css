@@ -13,7 +13,7 @@
   vertical-align: baseline;
 }
 .wbro-product-detail-feedback-rate {
-  color: #08979c;
+  color:#f2cf66 !important;
   font-size: 16px;
 }
 .wbro-product-detail-feedback-indicator {
@@ -223,6 +223,9 @@
   border-color: transparent #f2cf66 transparent transparent;
 }
 .wbro-product-detail-number-indicator {
+
+}
+.wbro-product-detail-devider-horizontal {
 
 }
 

@@ -27,6 +27,21 @@
     height: 16px;
   }
 }
+.wbro-product-detail-table_col_fixed {
+  position: fixed;
+  background-color: rgb(8, 151, 156) !important;
+  top: 0px;
+  left:-20px;
+  transition: color 0s;
+  width: calc(100% + 20px);
+  overflow: auto;
+  z-index: 1000;
+  // li.active > a {
+  //   transition: color 0s;
+  //   background-color: rgb(8, 151, 156) !important;
+  //   color: white;
+  // }
+}
 
 .list-title {
   visibility: hidden;
@@ -37,7 +52,14 @@
   .list-title {
     visibility: visible;
     position: relative;
+    color: white;
+    font-size: 12px;
     display: inline-block;
-    border-bottom: 2px solid #e8e8e8;
+    z-index: 500;
+    padding-top:10px;
+    padding-left:10px;
+    font-weight: bolder;
+    opacity: 1;
+    border-bottom: 0px solid #e8e8e8;
   }
 }
