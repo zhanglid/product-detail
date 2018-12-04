@@ -71,6 +71,9 @@ const OrderNumIndicator = ({ num = 0 }) => (
 const LinkedNumberIndicator = ({ num = 0 }) => (
   <span style={{ color: "black" }}>{`${num} people linked`}</span>
 );
+const YouLinedIndicator = (linked) => (
+  linked && <span style = {{color:"red",fontWeight:500}}>You Linked</span>
+)
 
 const _SellerIndicator = ({ seller, ...rest }) =>
   seller ? (
@@ -191,7 +194,7 @@ const ReturnPolicy = () => (
 
 const Payment = () => (
   <Label className="wbro-product-detail-padding-control" label="Payment">
-    <Payments methods={["visa", "tt", "amex"]} />
+    <Payments methods={["visa","mastercard", "tt","paypal", "amex"]} />
   </Label>
 );
 
@@ -298,6 +301,8 @@ class _App extends React.Component {
                   <OrderNumIndicator num={111} />
                   <Divider type="vertical" />
                   <LinkedNumberIndicator num={120} />
+                  <Divider type="vertical" />
+                  <YouLinedIndicator linked = {true}  />
                   <Divider type="vertical" />
                   <SellerIndicator />
                 </span>

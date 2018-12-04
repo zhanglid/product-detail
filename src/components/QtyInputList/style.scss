@@ -57,23 +57,9 @@
 }
 @media only screen and (max-width: 600px) {
   .list-title {
-    // visibility: visible;
-    // font-size: 12px;
-    // display: inline-block;
-    // justify-content: center;
     z-index: 3;
-    // font-weight: bolder;
-    // border-bottom: 0px solid #e8e8e8;
-    // opacity: 1;
   }
   .wbro-product-detail-table_col_fixed {
-    // display: inline-flex;
-    // transition: color 0s;
-    // width: calc(100% + 20px);
-    // overflow: auto;
-    // z-index: 3;
-      // width: 100%;
-
     .list-title {
       position: fixed;
       background-color: rgb(8, 151, 156) !important;

@@ -61,6 +61,7 @@ class _SelectedItemsSummary extends React.Component {
   constructor(props) {
     super(props);
     this.ref = React.createRef();
+    this.viewAllClickRef = React.createRef();
   }
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -70,8 +71,17 @@ class _SelectedItemsSummary extends React.Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
+  handleViewAllClick = e => {
+    e.stopPropagation();
+    this.props.toggleVisible();
+  };
+
   handleClickOutside = event => {
-    if (this.ref && !this.ref.current.contains(event.target)) {
+    if (
+      this.ref &&
+      !this.ref.current.contains(event.target) &&
+      !this.viewAllClickRef.current.contains(event.target)
+    ) {
       this.props.hide();
     }
   };
@@ -82,21 +92,21 @@ class _SelectedItemsSummary extends React.Component {
         {...rest}
         className={"selected-summary-area" + (className ? ` ${className}` : "")}
       >
-          <table
-            {...rest}
-            className={"selected-summary-table" + (visible ? "" : " invisible")}
-          >
-            <tbody ref={this.ref}>
-              {items.map(({ filter, items, qty = 0 }, index) => (
-                <SelectedItemsSummaryRow
-                  filter={filter}
-                  items={items}
-                  qty={qty}
-                  key={index}
-                />
-              ))}
-            </tbody>
-          </table>
+        <table
+          {...rest}
+          className={"selected-summary-table" + (visible ? "" : " invisible")}
+        >
+          <tbody ref={this.ref}>
+            {items.map(({ filter, items, qty = 0 }, index) => (
+              <SelectedItemsSummaryRow
+                filter={filter}
+                items={items}
+                qty={qty}
+                key={index}
+              />
+            ))}
+          </tbody>
+        </table>
         <Row
           type="flex"
           justify="space-between"
@@ -105,8 +115,8 @@ class _SelectedItemsSummary extends React.Component {
         >
           <Col>{qty} pcs</Col>
           <Col>{dollar(total)}</Col>
-          <Col>
-            <a onClick={this.props.toggleVisible}>
+          <Col onClick={this.handleViewAllClick}>
+            <a ref={this.viewAllClickRef}>
               View all <Icon type={visible ? "down" : "up"} />
             </a>
           </Col>

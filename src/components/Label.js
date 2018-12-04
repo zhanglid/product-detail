@@ -3,8 +3,8 @@ import { Row, Col } from "antd";
 import "../styles.css";
 
 const labelSize = {
-  xxl: 4,
-  xl: 4,
+  xxl: 2,
+  xl: 2,
   lg: 24,
   md: 24,
   sm: 24,
@@ -12,8 +12,8 @@ const labelSize = {
 };
 
 const childrenSize = {
-  xxl: 20,
-  xl: 20,
+  xxl: 22,
+  xl: 22,
   lg: 24,
   md: 24,
   sm: 24,

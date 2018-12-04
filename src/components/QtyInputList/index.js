@@ -56,8 +56,12 @@ const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
     <Col className="section" span={6} xl={6}>
       {variation}
     </Col>
-    <Col className="sections" span={6}>{price}</Col>
-    <Col className="sections" span={6}>{qty}</Col>
+    <Col className="sections" span={6}>
+      {price}
+    </Col>
+    <Col className="sections" span={6}>
+      {qty}
+    </Col>
     <Col className="sections" span={6} xl={6}>
       {input}
     </Col>
@@ -68,9 +72,11 @@ export class QtyInputList extends Component {
   constructor(props) {
     super(props);
     this.navRef = React.createRef();
+    this.listBottomRef = React.createRef();
     this.state = {
       fixed: false,
-      navOffset: null
+      navOffset: null,
+      navOffsetEnd: null
     };
     // this.deboucedSetState = _.debounce(this.setState, 5);
   }
@@ -90,7 +96,9 @@ export class QtyInputList extends Component {
     this.props.setExpanded(!expanded);
   };
   updateFixedStatus = () => {
-    const currentStatus = window.scrollY > this.state.navOffset;
+    const currentStatus =
+      window.scrollY > this.state.navOffset &&
+      window.scrollY < this.state.navOffsetEnd;
     if (this.state.fixed !== currentStatus) {
       this.setState({ fixed: currentStatus });
     }
@@ -103,10 +111,12 @@ export class QtyInputList extends Component {
   setNavPosition = () => {
     const currentPos =
       this.navRef.current.getBoundingClientRect().top + window.scrollY;
-
+    const currentEnd =
+      this.listBottomRef.current.getBoundingClientRect().top + window.scrollY;
     if (currentPos !== this.state.navOffset) {
       this.setState({
-        navOffset: currentPos
+        navOffset: currentPos,
+        navOffsetEnd: currentEnd
       });
     }
   };
@@ -132,61 +142,64 @@ export class QtyInputList extends Component {
     const loadMore = this.isExpandable() && (
       <div className="bucket-tag-select indicator">
         <a onClick={this.toggleLoadMore}>
-          <Icon style = {{color:"#08979c"}} type={expanded ? "up" : "down"} />
+          <Icon style={{ color: "#08979c" }} type={expanded ? "up" : "down"} />
         </a>
       </div>
     );
 
     return (
-      <List
-        itemLayout="horizontal"
-        loadMore={loadMore}
-        {...rest}
-        className="list-form-list-width"
-      >
-        <div
-          ref={this.navRef}
-          className={
-            this.state.fixed ? "wbro-product-detail-table_col_fixed" : ""
-          }
+      <React.Fragment>
+        <List
+          itemLayout="horizontal"
+          loadMore={loadMore}
+          {...rest}
+          className="list-form-list-width"
         >
-          <ListItem
-            variation={<div>variation</div>}
-            price="price"
-            qty={
-              <span>
-                <span>avaliable</span>
-                <div>(in cart)</div>
-              </span>
+          <div
+            ref={this.navRef}
+            className={
+              this.state.fixed ? "wbro-product-detail-table_col_fixed" : ""
             }
-            className="list-title"
-          />
-        </div>
-        {data.map(({ name, price, in_stock = 100000, _id }, index) => (
-          <List.Item className="qty-input-list-row">
+          >
             <ListItem
-              variation={<VariationTag name={name} _id={_id} key={index} />}
-              price={dollar(price)}
+              variation={<div>variation</div>}
+              price="price"
               qty={
-                in_stock === undefined ? (
-                  ""
-                ) : (
-                  <span>
-                    {numeral(100).format("0,0") + " "}
-                    <span className="small-hidden">avaliable</span>
-                    <CartIndicator _id={_id} />
-                  </span>
-                )
-              }
-              input={
-                <span className="qty-input-field">
-                  <QtyPickerField productId={_id} style={{ width: "100%" }} />
+                <span>
+                  <span>avaliable</span>
+                  <div>(in cart)</div>
                 </span>
               }
+              className="list-title"
             />
-          </List.Item>
-        ))}
-      </List>
+          </div>
+          {data.map(({ name, price, in_stock = 100000, _id }, index) => (
+            <List.Item className="qty-input-list-row">
+              <ListItem
+                variation={<VariationTag name={name} _id={_id} key={index} />}
+                price={dollar(price)}
+                qty={
+                  in_stock === undefined ? (
+                    ""
+                  ) : (
+                    <span>
+                      {numeral(100).format("0,0") + " "}
+                      <span className="small-hidden">avaliable</span>
+                      <CartIndicator _id={_id} />
+                    </span>
+                  )
+                }
+                input={
+                  <span className="qty-input-field">
+                    <QtyPickerField productId={_id} style={{ width: "100%" }} />
+                  </span>
+                }
+              />
+            </List.Item>
+          ))}
+        </List>
+        <div ref={this.listBottomRef} />
+      </React.Fragment>
     );
   }
 }
