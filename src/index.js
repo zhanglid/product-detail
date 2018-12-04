@@ -218,7 +218,7 @@ const Actions = () => (
     <Row className="wbro-product-detail-add-to-cart-button-row">
       <Col xxl={20} xl={20} lg={24} md={0} sm={0} xs={0}>
         <button className="product-detail-button add-to-cart">
-          Add to cart
+          Add to Cart
         </button>
         <LinkToEbayButton className="product-detail-button link-to-ebay" />
       </Col>
@@ -243,7 +243,7 @@ const ActionsFixed = favorite => (
       )}
     </a>
     <button className="product-detail-button add-to-cart button-fixed-flex-grow">
-      Add to cart
+      Add to Cart
     </button>
     <LinkToEbayButton className="product-detail-button link-to-ebay button-fixed-flex-grow" />
   </div>
