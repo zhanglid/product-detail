@@ -49,7 +49,7 @@ export default class QtyPicker extends Component {
     } else if (value > max) {
       return max;
     }
-    return value;
+    return parseFloat(value);
   };
 
   handleCloseAlert = e => {
@@ -95,6 +95,7 @@ export const QtyPickerField = ({ productId, ...rest }) => (
     component={renderField}
     type="text"
     format={(value = 0) => parseFloat(value)}
+    parse={parseFloat}
     {...rest}
   />
 );

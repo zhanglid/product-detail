@@ -13,7 +13,7 @@
   vertical-align: baseline;
 }
 .wbro-product-detail-feedback-rate {
-  color:#f2cf66 !important;
+  color: #fadb14 !important;
   font-size: 16px;
 }
 .wbro-product-detail-feedback-indicator {
@@ -73,7 +73,7 @@
   display: inline-block;
 }
 .wbro-product-detail-tag:hover {
-  background-color: #89bcbc;
+  /* background-color: #89bcbc; */
 }
 .wbro-product-detail-padding-control {
   padding: 10px 20px 0;
@@ -222,11 +222,11 @@
 .wbro-product-detail-product-event-tag-yellow:before {
   border-color: transparent #f2cf66 transparent transparent;
 }
+
 .wbro-product-detail-number-indicator {
-
 }
-.wbro-product-detail-devider-horizontal {
-
+.title-price-divier {
+  margin:  10px 0px 0px 0px !important;
 }
 
 @media only screen and (max-width: 992px) {
@@ -264,8 +264,8 @@
     margin: 0px;
   }
   .wbro-product-detail-number-indicator {
-    display:block;
-    padding:10px 20px 0;
+    display: block;
+    padding: 10px 20px 0;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -291,6 +291,7 @@
 }
 
 .product-detail-button {
+  border-radius: 4px !important;
   width: 160px;
   height: 40px;
   cursor: pointer;
@@ -298,7 +299,6 @@
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
   -o-border-radius: 0px;
-  border-radius: 0px;
   outline: none;
   border: none;
 }
@@ -308,6 +308,7 @@
   color: white;
   font-weight: 400;
   opacity: 0.8;
+  margin-right: 8px;
 }
 
 .product-detail-button:hover {
@@ -339,5 +340,14 @@
 .product-detail-card {
   margin-top: 16px;
   background-color: white;
+  margin-right: 64px;
+  margin-left: 64px;
   /* border: 1px solid #E8E8E8; */
+}
+
+@media only screen and (max-width: 768px) {
+  .product-detail-card {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }

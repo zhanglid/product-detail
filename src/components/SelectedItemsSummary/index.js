@@ -76,24 +76,27 @@ class _SelectedItemsSummary extends React.Component {
     }
   };
   render() {
-    const { items, qty, total, visible, ...rest } = this.props;
+    const { items, qty, total, visible, className, ...rest } = this.props;
     return (
-      <div {...rest}>
-        <table
-          {...rest}
-          className={"selected-summary-table" + (visible ? "" : " invisible")}
-        >
-          <tbody ref={this.ref}>
-            {items.map(({ filter, items, qty = 0 }, index) => (
-              <SelectedItemsSummaryRow
-                filter={filter}
-                items={items}
-                qty={qty}
-                key={index}
-              />
-            ))}
-          </tbody>
-        </table>
+      <div
+        {...rest}
+        className={"selected-summary-area" + (className ? ` ${className}` : "")}
+      >
+          <table
+            {...rest}
+            className={"selected-summary-table" + (visible ? "" : " invisible")}
+          >
+            <tbody ref={this.ref}>
+              {items.map(({ filter, items, qty = 0 }, index) => (
+                <SelectedItemsSummaryRow
+                  filter={filter}
+                  items={items}
+                  qty={qty}
+                  key={index}
+                />
+              ))}
+            </tbody>
+          </table>
         <Row
           type="flex"
           justify="space-between"

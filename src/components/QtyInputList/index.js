@@ -5,8 +5,7 @@ import { QtyPickerField } from "../QtyPicker";
 import { dollar } from "../utils";
 import numeral from "numeral";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
-import _ from 'lodash'
+import _ from "lodash";
 import {
   variationExpandedSelector,
   activeVariationIdSelector,
@@ -54,35 +53,26 @@ const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
       "qty-input-list-row variation-row" + (className ? " " + className : "")
     }
   >
-    <Col span={10} xl={8}>
+    <Col className="section" span={6} xl={6}>
       {variation}
     </Col>
-    <Col span={8} xl={8}>
-      <Row type="flex" align="middle">
-        <Col span={10} style={{ textAlign: "center" }}>
-          {price}
-        </Col>
-        <Col span={14} style={{ textAlign: "center" }}>
-          {qty}
-        </Col>
-      </Row>
-    </Col>
-    <Col span={6} xl={8}>
+    <Col className="sections" span={6}>{price}</Col>
+    <Col className="sections" span={6}>{qty}</Col>
+    <Col className="sections" span={6} xl={6}>
       {input}
     </Col>
   </Row>
 );
 
 export class QtyInputList extends Component {
-
   constructor(props) {
     super(props);
     this.navRef = React.createRef();
     this.state = {
       fixed: false,
-      navOffset: null,
+      navOffset: null
     };
-    this.deboucedSetState = _.debounce(this.setState, 5);
+    // this.deboucedSetState = _.debounce(this.setState, 5);
   }
 
   handleClick = _id => {
@@ -101,7 +91,6 @@ export class QtyInputList extends Component {
   };
   updateFixedStatus = () => {
     const currentStatus = window.scrollY > this.state.navOffset;
-    
     if (this.state.fixed !== currentStatus) {
       this.setState({ fixed: currentStatus });
     }
@@ -114,7 +103,7 @@ export class QtyInputList extends Component {
   setNavPosition = () => {
     const currentPos =
       this.navRef.current.getBoundingClientRect().top + window.scrollY;
-    
+
     if (currentPos !== this.state.navOffset) {
       this.setState({
         navOffset: currentPos
@@ -122,10 +111,8 @@ export class QtyInputList extends Component {
     }
   };
 
-
   componentDidUpdate() {
     this.setNavPosition();
-
   }
 
   componentDidMount() {
@@ -145,25 +132,35 @@ export class QtyInputList extends Component {
     const loadMore = this.isExpandable() && (
       <div className="bucket-tag-select indicator">
         <a onClick={this.toggleLoadMore}>
-          <Icon type={expanded ? "up" : "down"} />
+          <Icon style = {{color:"#08979c"}} type={expanded ? "up" : "down"} />
         </a>
       </div>
     );
 
     return (
-      <List itemLayout="horizontal" loadMore={loadMore} {...rest}>
-        <div ref={this.navRef} className={this.state.fixed ? "wbro-product-detail-table_col_fixed" : ""}>
-            <ListItem
-              variation = {<div style = {{paddingLeft:40,paddingTop:8}}>Variation</div>}
-              price="price"
-              qty={
-                <div style = {{paddingLeft:"15%"}}>
-                  <span>avaliable</span>
-                  <div>(in cart)</div>
-                </div>
-              }
-              className="list-title"
-            />
+      <List
+        itemLayout="horizontal"
+        loadMore={loadMore}
+        {...rest}
+        className="list-form-list-width"
+      >
+        <div
+          ref={this.navRef}
+          className={
+            this.state.fixed ? "wbro-product-detail-table_col_fixed" : ""
+          }
+        >
+          <ListItem
+            variation={<div>variation</div>}
+            price="price"
+            qty={
+              <span>
+                <span>avaliable</span>
+                <div>(in cart)</div>
+              </span>
+            }
+            className="list-title"
+          />
         </div>
         {data.map(({ name, price, in_stock = 100000, _id }, index) => (
           <List.Item className="qty-input-list-row">
@@ -183,7 +180,7 @@ export class QtyInputList extends Component {
               }
               input={
                 <span className="qty-input-field">
-                  <QtyPickerField productId={_id} style={{width: '100%'}} />
+                  <QtyPickerField productId={_id} style={{ width: "100%" }} />
                 </span>
               }
             />
@@ -195,7 +192,7 @@ export class QtyInputList extends Component {
 }
 
 QtyInputList.defaultProps = {
-  displayLimit: 5
+  displayLimit: 2
 };
 
 const mapState = state => ({

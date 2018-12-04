@@ -18,7 +18,6 @@ export class ImageGallery extends Component {
         <ReactImageGallery
           items={images}
           showNav={true}
-          showIndex={true}
           showPlayButton={false}
           lazyLoad={true}
           showFullscreenButton={false}

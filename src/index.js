@@ -58,7 +58,7 @@ const CategoryBreadcrumb = connect(breadcrumbSelector)(_CategoryBreadcrumb);
 const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
   <span className="wbro-product-detail-feedback-indicator">
     <Rate className="wbro-product-detail-feedback-rate" value={rate} disabled />
-    <span style={{ color: "#08979c", fontSize: "16px", fontWeight: 700 }}>
+    <span style={{ fontSize: "16px", fontWeight: 400 }}>
       {rate.toFixed(2)}
     </span>
     <span style={{ color: "#999" }}>{` (${count} votes)`}</span>
@@ -132,7 +132,7 @@ const _ProductPriceArea = ({
   <div className="wbro-product-detail-product-price-area" {...rest}>
     {activity && <ActivityBanner style={{ marginBottom: 10 }} />}
     <Label
-      style={{ lineHeight: "24px" }}
+      style={{ lineHeight: "34px" }}
       label={<span className="wbro-product-detail-media-screen-title" />}
     >
       {price !== null && (
@@ -229,7 +229,7 @@ const Actions = () => (
     <span className="wbro-product-detail-add-wishlist-action">
       <Icon type="heart" theme="twoTone" />
       <a href="/" style={{ marginLeft: 4 }}>
-        Add to Wish List
+        Add to Mylist
         <span className="wbro-product-detail-wishlist-num"> (350 Adds)</span>
       </a>
     </span>
@@ -269,12 +269,7 @@ class _App extends React.Component {
           <CategoryBreadcrumb breadcrumbs={breadcrumb} groupTitle={""} />
         </Row>
 
-        <div
-          className="App"
-          style={{
-            margin: "auto"
-          }}
-        >
+        <div className="App" >
           <div className="product-detail-card product-detail-upper-container">
             <Row>
               <Col
@@ -299,12 +294,12 @@ class _App extends React.Component {
                 </h1>
                 <FeedbackIndicator rate={3} count={2} />
                 <Divider type="vertical" />
-                <span className = "wbro-product-detail-number-indicator">
-                <OrderNumIndicator num={111} />
-                <Divider type="vertical" />
-                <LinkedNumberIndicator num={120} />
-                <Divider type="vertical" />
-                <SellerIndicator />
+                <span className="wbro-product-detail-number-indicator">
+                  <OrderNumIndicator num={111} />
+                  <Divider type="vertical" />
+                  <LinkedNumberIndicator num={120} />
+                  <Divider type="vertical" />
+                  <SellerIndicator />
                 </span>
                 {/* {!this.props.linked && 
               <div>
@@ -312,13 +307,18 @@ class _App extends React.Component {
               <LinkedIndicator />
               </div>
               } */}
-                <Divider className = "wbro-product-detail-devider-horizontal" />
+                <Divider
+                  className="title-price-divier"
+                />
                 <ProductPriceArea />
                 <div className="buynowform-container">
                   <BuyNowForm />
                 </div>
                 <Actions />
                 <ActionsFixed favorite={true} />
+                <Divider
+                  className="title-price-divier"
+                />
                 <ReturnPolicy />
                 <Payment />
                 <BuyerProtection />

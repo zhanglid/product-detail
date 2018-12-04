@@ -22,13 +22,13 @@ export class BuyNowForm extends Component {
         <Label label={capitalize(filterName)}>
           <FeatureFilter />
         </Label>
-        <Label
+        {/* <Label
           label={<span className="small-hidden">Variation</span>}
           style={{ lineHeight: "32px" }}
-        >
-          <QtyInputList data={variations} />
-          {selected && <SelectedItemsSummary />}
-        </Label>
+        > */}
+        <QtyInputList data={variations} />
+        {selected && <SelectedItemsSummary />}
+        {/* </Label> */}
       </div>
     );
   }
