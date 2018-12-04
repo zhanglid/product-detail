@@ -6,7 +6,7 @@ export default class VariationTag extends PureComponent {
     const { name, _id, active, onSelect, disabled, ...rest } = this.props;
     return (
       <span
-        className={`wbro-product-detail-tag` + (active ? " active" : "")}
+        className={`wbro-product-detail-tag` + (active ? " active" : "") + (disabled ? " disabled" : "") }
         onClick={() => onSelect(_id, name)}
         {...rest}
       >

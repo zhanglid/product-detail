@@ -21,10 +21,16 @@
   border: 1px solid #08979c;
 }
 
+
 .wbro-product-detail-tag.active {
   @extend %taghover;
 }
+.wbro-product-detail-tag.disabled {
+  cursor:no-drop;
+  pointer-events: none;
+  background-color: #ccc;
 
+}
 @media (hover: hover) {
   .wbro-product-detail-tag:hover {
     cursor: pointer;
