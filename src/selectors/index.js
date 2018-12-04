@@ -227,3 +227,11 @@ export const selectedItemsSummarySelector = createSelector(
     total: sumBy(items, "total")
   })
 );
+
+export const activeVariationSelector = createSelector(
+  allVariationsSelector,
+  activeVariationIdSelector,
+  (variations, id) => {
+    return variations.find(({_id}) => _id === id)
+  }
+)

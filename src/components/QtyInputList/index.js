@@ -9,8 +9,9 @@ import _ from "lodash";
 import {
   variationExpandedSelector,
   activeVariationIdSelector,
-  cartSelector
+  cartSelector,
 } from "../../selectors";
+import FixPic from "./fixPic"
 import "./style.scss";
 
 const variationMapStateToProps = (state, { _id }) => ({
@@ -141,7 +142,7 @@ export class QtyInputList extends Component {
 
   render() {
     const { onChange, displayLimit, data: rawData, ...rest } = this.props;
-
+    
     const expanded = this.props.expanded || !this.isExpandable();
     const data = !expanded ? rawData.slice(0, displayLimit) : rawData;
     const loadMore = this.isExpandable() && (
@@ -160,6 +161,9 @@ export class QtyInputList extends Component {
           {...rest}
           className="list-form-list-width"
         >
+          {this.state.fixed && 
+            <div><FixPic/></div>
+          }
           <div
             ref={this.navRef}
             className={
@@ -214,7 +218,7 @@ QtyInputList.defaultProps = {
 };
 
 const mapState = state => ({
-  expanded: variationExpandedSelector(state)
+  expanded: variationExpandedSelector(state),
 });
 
 const mapDispatch = ({ productDetailView: { setVariationsExpanded } }) => ({

@@ -7,14 +7,6 @@ import "./style.scss";
 import { imagesSelector } from "../../selectors";
 
 export class ImageGallery extends Component {
-  constructor(props) {
-    super(props);
-    // this.deboucedSetState = _.debounce(this.setState, 5);
-  }
-
- 
-  
-
   render() {
     const { images: rawImages = [] } = this.props;
     const images = (rawImages || []).map(url => ({
@@ -25,6 +17,7 @@ export class ImageGallery extends Component {
       <div className = "product-detail-show-bullets"
       >
         <ReactImageGallery
+          // className={"image-gallery-thumbnails-wrapper"}
           items={images}
           showPlayButton={false}
           lazyLoad={true}

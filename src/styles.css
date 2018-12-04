@@ -43,9 +43,25 @@
 .wbro-product-detail-product-price-area {
   padding: 10px 20px 0;
 }
-.wbro-product-detail-price-dollar {
+.wbro-product-detail-price-dollar{
   font-size: 24px;
   font-weight: 300;
+}
+@media only screen and (max-width: 600px){
+  .wbro-product-detail-price-dollar {
+    font-size: 24px;
+    font-weight: 400;
+    /* position: fixed;
+    height: 71px;
+    width: 100%;
+    top: 0;
+    padding-top: 20px;
+    padding-left: 60px;
+    padding-right: 20px;
+    left: 0;
+    z-index: 98;
+    background: #ffffff */
+  }
 }
 .wbro-product-detail-product-price-tags {
   display: inline-block;
