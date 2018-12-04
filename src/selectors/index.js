@@ -41,21 +41,25 @@ export const filtersSelector = createSelector(
   view => view.filters
 );
 
-const getVariationName = (features = []) => {
-  if (features.length > 2) {
-    features = features.slice(2);
-  } else if (features.length > 1) {
-    features = features.slice(1);
-  }
+const getVariationName = (features = [], filter = []) => {
+  const disabledIndexes = filter.reduce((result, value, index) => {
+    if (!value) {
+      return result;
+    }
+    return [...result, index];
+  }, []);
+
+  features = features.filter((f, index) => !disabledIndexes.includes(index));
   return features.map(({ value }) => value).join(" ");
 };
 
 export const allVariationsSelector = createSelector(
   productDetailViewSelector,
-  view =>
+  filtersSelector,
+  (view, filter) =>
     view.variations
       .map(({ price, features, _id }) => ({
-        name: getVariationName(features),
+        name: getVariationName(features, filter),
         features,
         price,
         filters: [get(features, "[0].value"), get(features, "[1].value")],
