@@ -39,7 +39,7 @@ export default class QtyPicker extends Component {
       this.setState({ alertMessage: null });
     }
     const parsed = this.parseRange(value);
-    onChange && onChange(parsed);
+    onChange && onChange(isNaN(parsed) ? originalValue : parsed);
   };
 
   parseRange = value => {

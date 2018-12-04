@@ -6,8 +6,7 @@ import FeatureFilter from "../FeatureFilter";
 import { connect } from "react-redux";
 import {
   variationsSelector,
-  filterNameSelector,
-  selectedItemsSelector,
+  filtersNameSelector,
   hasItemSelectedSelector
 } from "../../selectors";
 import { capitalize } from "lodash";
@@ -16,12 +15,19 @@ import { reduxForm } from "redux-form";
 
 export class BuyNowForm extends Component {
   render() {
-    const { variations = [], filterName, selected } = this.props;
+    const { variations = [], filtersName = [], selected } = this.props;
+    console.log(filtersName);
     return (
       <div style={{ padding: "10px 20px 10px 20px" }}>
-        <Label label={capitalize(filterName)}>
-          <FeatureFilter />
-        </Label>
+        {filtersName.map((filterName, index) => (
+          <Label
+            style={{ marginBottom: "16px" }}
+            label={capitalize(filterName)}
+            key={index}
+          >
+            <FeatureFilter key={index} index={index} />
+          </Label>
+        ))}
         {/* <Label
           label={<span className="small-hidden">Variation</span>}
           style={{ lineHeight: "32px" }}
@@ -36,7 +42,7 @@ export class BuyNowForm extends Component {
 
 const mapState = state => ({
   variations: variationsSelector(state),
-  filterName: filterNameSelector(state),
+  filtersName: filtersNameSelector(state),
   selected: hasItemSelectedSelector(state)
 });
 

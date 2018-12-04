@@ -2,22 +2,28 @@ import React, { PureComponent } from "react";
 import VariationTag from "../VariationTag";
 import { connect } from "react-redux";
 import "./style.scss";
-import { featuresFiltersSelector, filterSelector } from "../../selectors";
+import { featuresFiltersSelector, filtersSelector } from "../../selectors";
 
-export class FreatureFilter extends PureComponent {
+export class FeatureFilter extends PureComponent {
+  handleFilterClick = (_id, name) => {
+    this.props.setFilter({
+      index: this.props.index,
+      value: name === this.props.filter ? null : name
+    });
+  };
+
   render() {
-    const { features = [] } = this.props;
+    const { features = [], filter, key = 0, index, ...rest } = this.props;
     return (
-      <div className="feature-filter-container">
-        {features.map((feature, index) => (
+      <div className="feature-filter-container" {...rest}>
+        {features.map(({ value, count }, index) => (
           <VariationTag
             key={index}
             _id={index}
-            name={feature}
-            active={feature === this.props.filter}
-            onSelect={(_id, name) =>
-              this.props.setFilter(name === this.props.filter ? null : name)
-            }
+            name={value}
+            active={value === filter}
+            disabled={count === 0}
+            onSelect={this.handleFilterClick}
           />
         ))}
       </div>
@@ -25,9 +31,9 @@ export class FreatureFilter extends PureComponent {
   }
 }
 
-const mapState = state => ({
-  features: featuresFiltersSelector(state),
-  filter: filterSelector(state)
+const mapState = (state, { index = 0 }) => ({
+  features: featuresFiltersSelector(state)[index],
+  filter: filtersSelector(state)[index]
 });
 
 const mapDispatch = ({ productDetailView: { setFilter } }) => ({
@@ -37,4 +43,4 @@ const mapDispatch = ({ productDetailView: { setFilter } }) => ({
 export default connect(
   mapState,
   mapDispatch
-)(FreatureFilter);
+)(FeatureFilter);

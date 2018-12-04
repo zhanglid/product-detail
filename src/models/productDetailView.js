@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { get, uniq } from "lodash";
 import group from "../mock/group.json";
 import cart from "../mock/cart.json";
 
@@ -23,7 +23,7 @@ const selectBreadcrumb = category => {
 export const productDetailView = {
   state: {
     summaryVisible: false,
-    filter: null,
+    filters: [],
     breadcrumb: [],
     variations: [],
     activeVariationId: null,
@@ -90,9 +90,18 @@ export const productDetailView = {
       };
     },
     setFilter(state, payload) {
+      const { filters } = state;
+      filters[payload.index] = payload.value;
       return {
         ...state,
-        filter: payload,
+        filters,
+        activeVariationId: null
+      };
+    },
+    removeFilter(state, payload) {
+      return {
+        ...state,
+        filters: state.filters.filter(value => value !== payload),
         activeVariationId: null
       };
     },

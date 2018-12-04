@@ -1,3 +1,13 @@
+.product-detail-show-bullets {
+  .image-gallery-slide-wrapper  {
+    button {
+      visibility: visible !important;
+      background: #ccc !important;
+    }
+  }
+  
+}
+
 @media only screen and (max-width: 600px) {
   .image-gallery-thumbnails-wrapper {
     visibility: collapse;
