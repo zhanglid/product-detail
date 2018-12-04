@@ -7,6 +7,15 @@ import "./style.scss";
 import { imagesSelector } from "../../selectors";
 
 export class ImageGallery extends Component {
+  constructor(props) {
+    super(props);
+    this.navRef = React.createRef();
+    this.state = {
+      fixed: false,
+      navOffset: null
+    };
+    // this.deboucedSetState = _.debounce(this.setState, 5);
+  }
   render() {
     const { images: rawImages = [] } = this.props;
     const images = (rawImages || []).map(url => ({
@@ -16,6 +25,7 @@ export class ImageGallery extends Component {
     return (
       <div>
         <ReactImageGallery
+          // className={"image-gallery-thumbnails-wrapper"}
           items={images}
           showNav={true}
           showPlayButton={false}

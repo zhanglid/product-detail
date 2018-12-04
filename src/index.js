@@ -125,6 +125,9 @@ const ActivityBanner = ({ name = "On sell", time = "Clearance", ...rest }) => (
   </div>
 );
 
+let winScrollTop = document.documentElement.scrollTop
+let fix = winScrollTop > 400 ? true : false
+
 const _ProductPriceArea = ({
   activity = false,
   price = [],
@@ -139,7 +142,7 @@ const _ProductPriceArea = ({
       label={<span className="wbro-product-detail-media-screen-title" />}
     >
       {price !== null && (
-        <span className="wbro-product-detail-price-dollar">
+        <span className={"wbro-product-detail-price-dollar"}>
           US ${" "}
           {isArray(price)
             ? price.map(p => p.toFixed(2)).join(" - ")

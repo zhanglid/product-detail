@@ -116,7 +116,7 @@ class _SelectedItemsSummary extends React.Component {
           <Col>{qty} pcs</Col>
           <Col>{dollar(total)}</Col>
           <Col onClick={this.handleViewAllClick}>
-            <a ref={this.viewAllClickRef}>
+            <a ref={this.viewAllClickRef} style={{color:"#39acb0"}}>
               View all <Icon type={visible ? "down" : "up"} />
             </a>
           </Col>
