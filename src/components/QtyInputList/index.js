@@ -115,7 +115,12 @@ export class QtyInputList extends Component {
       this.listBottomRef.current.getBoundingClientRect().top + window.scrollY;
     if (currentPos !== this.state.navOffset) {
       this.setState({
-        navOffset: currentPos,
+        navOffset: currentPos
+      });
+    }
+
+    if (currentEnd !== this.state.navOffsetEnd) {
+      this.setState({
         navOffsetEnd: currentEnd
       });
     }
