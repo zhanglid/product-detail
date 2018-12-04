@@ -36,42 +36,75 @@ export const breadcrumbSelector = createSelector(
   (view, group) => ({ breadcrumbs: view.breadcrumb, groupTitle: group.title })
 );
 
-export const filterSelector = createSelector(
+export const filtersSelector = createSelector(
   productDetailViewSelector,
-  view => view.filter
+  view => view.filters
 );
 
-export const featuresFiltersSelector = createSelector(
-  productDetailViewSelector,
-  view => uniq(view.variations.map(({ features }) => features[0].value))
-);
+const getVariationName = (features = []) => {
+  if (features.length > 2) {
+    features = features.slice(2);
+  } else if (features.length > 1) {
+    features = features.slice(1);
+  }
+  return features.map(({ value }) => value).join(" ");
+};
 
 export const allVariationsSelector = createSelector(
   productDetailViewSelector,
   view =>
     view.variations
       .map(({ price, features, _id }) => ({
-        name: features
-          .slice(1)
-          .map(({ value }) => value)
-          .join(" "),
+        name: getVariationName(features),
         features,
         price,
-        filter: get(features, "[0].value"),
+        filters: [get(features, "[0].value"), get(features, "[1].value")],
         _id
       }))
       .sort((a, b) => (a.name > b.name ? 1 : -1))
 );
 
+const filterVariation = (variations, filters = []) => {
+  console.log(variations, "variations", filters);
+  for (let index in filters) {
+    if (filters[index]) {
+      variations = variations.filter(
+        ({ filters: variationFilters }) =>
+          variationFilters[index] === filters[index]
+      );
+    }
+  }
+  return variations;
+};
+
+const getFeatureAt = ({ features }, index) => get(features, `[${index}].value`);
+
+export const featuresFiltersSelector = createSelector(
+  allVariationsSelector,
+  filtersSelector,
+  (variations, filters) =>
+    [0, 1].map(index => {
+      const featureValues = uniq(
+        variations.map(variation => getFeatureAt(variation, index))
+      );
+
+      return featureValues
+        .sort((a, b) => (a > b ? 1 : -1))
+        .map(value => {
+          let filter = [null, null];
+          const other = index === 0 ? 1 : 0;
+          filter[index] = value;
+          filter[other] = filters[other];
+          const count = filterVariation(variations, filter).length;
+          return { count, value };
+        });
+    })
+);
+
 export const variationsSelector = createSelector(
   allVariationsSelector,
-  filterSelector,
-  (allVariations, filter) => {
-    const variations = filter
-      ? allVariations.filter(variation => variation.filter === filter)
-      : allVariations;
-    return variations;
-  }
+  filtersSelector,
+  filterVariation
 );
 
 export const displayInfoSelector = createSelector(
@@ -85,9 +118,22 @@ export const displayInfoSelector = createSelector(
   }
 );
 
-export const filterNameSelector = createSelector(
+export const filtersNameSelector = createSelector(
   productDetailViewSelector,
-  view => get(view.variations, "[0].features[0].feature", null)
+  view => {
+    const size = get(view.variations, `[0].features`, []).length;
+    if (size > 2) {
+      return [0, 1].map(index =>
+        get(view.variations, `[0].features[${index}].feature`, null)
+      );
+    } else if (size > 1) {
+      return [0].map(index =>
+        get(view.variations, `[0].features[${index}].feature`, null)
+      );
+    }
+
+    return [];
+  }
 );
 
 export const priceAreaInfoSelector = createSelector(
@@ -145,7 +191,10 @@ export const selectedItemsSelector = createSelector(
       ...variationsDict[key]
     }));
     return toPairs(
-      groupBy(Object.values(selectedDict).filter(({ qty }) => !!qty), "filter")
+      groupBy(
+        Object.values(selectedDict).filter(({ qty }) => !!qty),
+        "filters[0]"
+      )
     ).map(([key, items]) => ({
       items: items.sort((a, b) => a.name > b.name),
       filter: key,

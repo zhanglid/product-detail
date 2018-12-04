@@ -5,10 +5,10 @@ import "./styles.css";
 
 export class Description extends React.Component {
   render() {
-    const { values = [], description, ...rest } = this.props;
+    const { values = [], description, className, ...rest } = this.props;
     console.log(description);
     return (
-      <div {...rest}>
+      <div {...rest} className={"description-area" + (className ? " " + className : "")}>
         <UIBox title="Item specifics">
           <PropertyList data={values} />
         </UIBox>

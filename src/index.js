@@ -58,26 +58,23 @@ const CategoryBreadcrumb = connect(breadcrumbSelector)(_CategoryBreadcrumb);
 const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
   <span className="wbro-product-detail-feedback-indicator">
     <Rate className="wbro-product-detail-feedback-rate" value={rate} disabled />
-    <span style={{ fontSize: "16px", fontWeight: 400 }}>
-      {rate.toFixed(2)}
-    </span>
+    <span className="wbro-product-detail-small-light-indicator">{rate.toFixed(2)}</span>
     <span style={{ color: "#999" }}>{` (${count} votes)`}</span>
   </span>
 );
 
 const OrderNumIndicator = ({ num = 0 }) => (
-  <span style={{ color: "black" }}>{`Sold: ${num}`}</span>
+  <span className="wbro-product-detail-small-light-indicator">{`Sold: ${num}`}</span>
 );
 const LinkedNumberIndicator = ({ num = 0 }) => (
-  <span style={{ color: "black" }}>{`${num} people linked`}</span>
+  <span className="wbro-product-detail-small-light-indicator">{`${num} people linked`}</span>
 );
-const YouLinedIndicator = (linked) => (
-  linked && <span style = {{color:"red",fontWeight:500}}>You Linked</span>
-)
+const YouLinedIndicator = linked =>
+  linked && <span style={{ color: "red", fontWeight: 500 }}>You Linked</span>;
 
 const _SellerIndicator = ({ seller, ...rest }) =>
   seller ? (
-    <span style={{ color: "grey" }} {...rest}>{`By ${seller}`}</span>
+    <span className = "wbro-product-detail-small-light-indicator" {...rest}>{`By ${seller}`}</span>
   ) : (
     <span />
   );
@@ -183,7 +180,7 @@ const _ProductPriceArea = ({
 const ProductPriceArea = connect(priceAreaInfoSelector)(_ProductPriceArea);
 
 const ReturnPolicy = () => (
-  <Label className="wbro-product-detail-padding-control" label="Return Policy">
+  <Label wide = {true} className="wbro-product-detail-padding-control" label="Return Policy">
     <span>
       <IconFont type="icon-tuichu" /> Returns accepted if product not as
       described, buyer pays return shipping fee; or keep the product & agree
@@ -193,8 +190,8 @@ const ReturnPolicy = () => (
 );
 
 const Payment = () => (
-  <Label className="wbro-product-detail-padding-control" label="Payment">
-    <Payments methods={["visa","mastercard", "tt","paypal", "amex"]} />
+  <Label wide = {true} className="wbro-product-detail-padding-control" label="Payment">
+    <Payments methods={["visa", "mastercard", "tt", "paypal", "amex"]} />
   </Label>
 );
 
@@ -202,14 +199,11 @@ const BuyerProtection = () => (
   <Row className="wbro-product-detail-padding-control wbro-product-detail-buyer-production-banner-horizatal">
     <span className="wbro-product-detail-bp-ima" />
     <h3 className="wbro-product-detail-buyer-protection-info">
-      Buyer Protection
+      Warranty Policy
     </h3>
     <ul className="wbro-product-detail-buy-protection-info-list util-clearfix">
       <li className="bp-info-item">
-        <em>Full Refund</em> if you don't receive your order
-      </li>
-      <li className="bp-info-item">
-        <em>Full or&nbsp;Partial Refund</em> , if the item is not as described
+        <em>3 month warranty</em> <a>see detail</a>
       </li>
     </ul>
   </Row>
@@ -230,8 +224,8 @@ const Actions = () => (
       </Col>
     </Row>
     <span className="wbro-product-detail-add-wishlist-action">
-      <Icon type="heart" theme="twoTone" />
-      <a href="/" style={{ marginLeft: 4 }}>
+      <Icon type="heart" theme="twoTone" twoToneColor = "red"/>
+      <a className = "wbro-product-detail-wishlist-color" href="/" style={{ marginLeft: 4 }}>
         Add to Mylist
         <span className="wbro-product-detail-wishlist-num"> (350 Adds)</span>
       </a>
@@ -272,7 +266,7 @@ class _App extends React.Component {
           <CategoryBreadcrumb breadcrumbs={breadcrumb} groupTitle={""} />
         </Row>
 
-        <div className="App" >
+        <div className="App">
           <div className="product-detail-card product-detail-upper-container">
             <Row>
               <Col
@@ -302,7 +296,7 @@ class _App extends React.Component {
                   <Divider type="vertical" />
                   <LinkedNumberIndicator num={120} />
                   <Divider type="vertical" />
-                  <YouLinedIndicator linked = {true}  />
+                  <YouLinedIndicator linked={true} />
                   <Divider type="vertical" />
                   <SellerIndicator />
                 </span>
@@ -312,18 +306,14 @@ class _App extends React.Component {
               <LinkedIndicator />
               </div>
               } */}
-                <Divider
-                  className="title-price-divier"
-                />
+                <Divider className="title-price-divier" />
                 <ProductPriceArea />
                 <div className="buynowform-container">
                   <BuyNowForm />
                 </div>
                 <Actions />
                 <ActionsFixed favorite={true} />
-                <Divider
-                  className="title-price-divier"
-                />
+                <Divider className="title-price-divier" />
                 <ReturnPolicy />
                 <Payment />
                 <BuyerProtection />
@@ -335,7 +325,10 @@ class _App extends React.Component {
             <Row>
               <TabMenu />
             </Row>
-            <Row style={{ width: "100%" }}>
+            <Row
+              className="detail-tabs-area"
+              style={{ width: "100%", paddingBottom: "256px" }}
+            >
               {tabKey === "1" && (
                 <Description className="description" description={"😄"} />
               )}
