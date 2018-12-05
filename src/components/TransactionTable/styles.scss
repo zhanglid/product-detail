@@ -1,0 +1,35 @@
+.product-detail-transaction-table-title{
+    padding:10px;
+    border-bottom: 3px solid #333;
+    line-height: 34px;
+}
+.product-detail-transaction-table-pagination{
+    text-align: right;
+    padding:12px;
+    background: #eee;
+
+}
+.product-detail-transaction-table{
+    .ant-table-tbody > tr {
+        background-color:white; 
+    }
+    .ant-table-tbody tr:hover td{
+        background-color:white; 
+    }
+
+    
+}
+
+.product-detail-transaction-table-statics {
+    float:right;
+}
+@media only screen and (max-width: 600px) {
+    .product-detail-transaction-table-statics {
+        display: none;
+    }
+    .product-detail-transaction-table-pagination{
+        text-align: center;
+    
+    }
+
+}

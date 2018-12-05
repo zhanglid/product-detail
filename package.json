@@ -9,6 +9,7 @@
     "animate.css": "^3.7.0",
     "antd": "3.10.9",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "node-sass": "^4.10.0",
     "numeral": "^2.0.6",
     "react": "16.6.3",
