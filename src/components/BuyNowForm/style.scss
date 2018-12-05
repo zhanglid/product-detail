@@ -9,7 +9,7 @@
 
 .bucket-tag-select.indicator {
   position: relative;
-  left: 32px;
+  left: 5%;
   top: -1px;
   border-left: 1px solid #e8e8e8;
   border-right: 1px solid #e8e8e8;
@@ -17,7 +17,7 @@
   text-align: center;
   width: 64px;
   line-height: 24px;
-  z-index: 999;
+  z-index: 1;
   background-color: white;
 
   a {
@@ -25,5 +25,11 @@
     color: gray;
     width: 64px;
     height: 16px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .bucket-tag-select.indicator {
+    left: 70%;
   }
 }

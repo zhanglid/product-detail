@@ -3,7 +3,7 @@
   position: absolute;
   width: 100%;
   bottom: 64px;
-  z-index: 3;
+  z-index: 5;
   background-color: white;
   box-shadow: 0 -3px 3px -3px #d5d5d5;
 
@@ -39,7 +39,6 @@
   padding: 16px;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
-
   a {
     font-size: 1rem;
   }
@@ -60,6 +59,7 @@
 
 .selected-summary-area {
   position: relative;
+  z-index: 5;
 }
 
 @media only screen and (max-width: 600px) {
@@ -67,11 +67,13 @@
     left: 0px;
     position: fixed;
     width: 100%;
-    z-index: 3;
+    z-index: 5;
     bottom: 76px;
   }
 }
-
+.selected-item-summary-title {
+  margin-top: 0px;
+}
 .seleted-summary-container {
   position: relative;
   width: 100%;

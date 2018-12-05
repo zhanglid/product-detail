@@ -8,12 +8,10 @@ import "antd/dist/antd.css";
 import numeral from "numeral";
 import TabMenu from "./components/TabMenu";
 import FloatView from "./components/FloatView";
-import group from "./mock/group";
 import BuyNowForm from "./components/BuyNowForm";
 import Description from "./components/Description";
 import SellerInfo from "./components/SellerInfo";
 import { reducer as formReducer } from "redux-form";
-import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider, connect } from "react-redux";
 import logger from "redux-logger";
 import { init } from "@rematch/core";
@@ -23,12 +21,14 @@ import {
   breadcrumbSelector,
   activeTabKeySelector,
   priceAreaInfoSelector,
-  brandSelector,
-  sellerSelector
+  sellerSelector,
+  isFavoriateSelector,
+  isLinkedSelector
 } from "./selectors";
-
-import "./styles.css";
+import "./styles.scss";
 import "./antd.less";
+import "./lib/pe-icon-set-e-commerce/css/pe-icon-set-e-commerce.css";
+import "./lib/pe-icon-set-e-commerce/css/helper.css";
 import { isArray } from "util";
 
 const IconFont = Icon.createFromIconfontCN({
@@ -45,7 +45,7 @@ const _CategoryBreadcrumb = ({ breadcrumbs = [], groupTitle }) => (
   <Breadcrumb>
     {[{ name: "HOME", _id: "ROOT" }, ...breadcrumbs, { name: groupTitle }].map(
       ({ name, _id }) => (
-        <Breadcrumb.Item key={_id}>
+        <Breadcrumb.Item className="breadcrumb-item" key={_id}>
           <a href="/">{name}</a>
         </Breadcrumb.Item>
       )
@@ -58,7 +58,9 @@ const CategoryBreadcrumb = connect(breadcrumbSelector)(_CategoryBreadcrumb);
 const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
   <span className="wbro-product-detail-feedback-indicator">
     <Rate className="wbro-product-detail-feedback-rate" value={rate} disabled />
-    <span className="wbro-product-detail-small-light-indicator">{rate.toFixed(2)}</span>
+    <span className="wbro-product-detail-small-light-indicator">
+      {rate.toFixed(2)}
+    </span>
     <span style={{ color: "#999" }}>{` (${count} votes)`}</span>
   </span>
 );
@@ -69,12 +71,26 @@ const OrderNumIndicator = ({ num = 0 }) => (
 const LinkedNumberIndicator = ({ num = 0 }) => (
   <span className="wbro-product-detail-small-light-indicator">{`${num} people linked`}</span>
 );
-const YouLinedIndicator = linked =>
-  linked && <span style={{ color: "red", fontWeight: 500 }}>You Linked</span>;
+const _YouLinkedIndicator = ({ linked, ...rest }) =>
+  linked && (
+    <React.Fragment>
+      <Divider type="vertical" />
+      <span style={{ color: "red", fontWeight: 500 }} {...rest}>
+        You Linked
+      </span>
+    </React.Fragment>
+  );
+
+const YouLinkedIndicator = connect(state => ({
+  linked: isLinkedSelector(state)
+}))(_YouLinkedIndicator);
 
 const _SellerIndicator = ({ seller, ...rest }) =>
   seller ? (
-    <span className = "wbro-product-detail-small-light-indicator" {...rest}>{`By ${seller}`}</span>
+    <span
+      className="wbro-product-detail-small-light-indicator"
+      {...rest}
+    >{`By ${seller}`}</span>
   ) : (
     <span />
   );
@@ -122,8 +138,8 @@ const ActivityBanner = ({ name = "On sell", time = "Clearance", ...rest }) => (
   </div>
 );
 
-let winScrollTop = document.documentElement.scrollTop
-let fix = winScrollTop > 400 ? true : false
+let winScrollTop = document.documentElement.scrollTop;
+let fix = winScrollTop > 400 ? true : false;
 
 const _ProductPriceArea = ({
   activity = false,
@@ -176,6 +192,7 @@ const _ProductPriceArea = ({
           ))}
         </ul>
       </span>
+      <FastShippingLogo isExpressShip={true} />
     </Label>
   </div>
 );
@@ -183,7 +200,11 @@ const _ProductPriceArea = ({
 const ProductPriceArea = connect(priceAreaInfoSelector)(_ProductPriceArea);
 
 const ReturnPolicy = () => (
-  <Label wide = {true} className="wbro-product-detail-padding-control" label="Return Policy">
+  <Label
+    wide={true}
+    className="wbro-product-detail-padding-control"
+    label="Return Policy"
+  >
     <span>
       <IconFont type="icon-tuichu" /> Returns accepted if product not as
       described, buyer pays return shipping fee; or keep the product & agree
@@ -193,7 +214,11 @@ const ReturnPolicy = () => (
 );
 
 const Payment = () => (
-  <Label wide = {true} className="wbro-product-detail-padding-control" label="Payment">
+  <Label
+    wide={true}
+    className="wbro-product-detail-padding-control"
+    label="Payment"
+  >
     <Payments methods={["visa", "mastercard", "tt", "paypal", "amex"]} />
   </Label>
 );
@@ -216,8 +241,42 @@ const LinkToEbayButton = ({ ...rest }) => (
   <button {...rest}>Drop Shipping</button>
 );
 
+const _AddFavoriteButton = ({
+  onClick,
+  isFavoriate,
+  withText = true,
+  ...rest
+}) => (
+  <span onClick={onClick} {...rest}>
+    <Icon
+      type="heart"
+      theme={isFavoriate ? "filled" : "twoTone"}
+      twoToneColor="red"
+      style={{ color: "red" }}
+    />
+    {withText && (
+      <a
+        className="wbro-product-detail-wishlist-color"
+        style={{ marginLeft: 4 }}
+      >
+        {isFavoriate ? "Remove from Mylist" : "Add to Mylist"}
+        <span className="wbro-product-detail-wishlist-num"> (350 Adds)</span>
+      </a>
+    )}
+  </span>
+);
+
+const AddFavoriteButton = connect(
+  state => ({
+    isFavoriate: isFavoriateSelector(state)
+  }),
+  ({ productDetailView: { toggleFavoriateAsync } }) => ({
+    onClick: toggleFavoriateAsync
+  })
+)(_AddFavoriteButton);
+
 const Actions = () => (
-  <Label className="wbro-product-detail-padding-control">
+  <div className="wbro-product-detail-padding-control">
     <Row className="wbro-product-detail-add-to-cart-button-row">
       <Col xxl={20} xl={20} lg={24} md={0} sm={0} xs={0}>
         <button className="product-detail-button add-to-cart">
@@ -227,29 +286,45 @@ const Actions = () => (
       </Col>
     </Row>
     <span className="wbro-product-detail-add-wishlist-action">
-      <Icon type="heart" theme="twoTone" twoToneColor = "red"/>
-      <a className = "wbro-product-detail-wishlist-color" href="/" style={{ marginLeft: 4 }}>
-        Add to Mylist
-        <span className="wbro-product-detail-wishlist-num"> (350 Adds)</span>
-      </a>
+      <AddFavoriteButton className="add-favorite-button small-hidden" />
     </span>
-  </Label>
+  </div>
 );
 
-const ActionsFixed = favorite => (
+const ActionsFixed = ({ isFavoriate, onClick, ...rest }) => (
   <div className="wbro-product-detail-detail-action-bar-fixed-tool-bar">
-    <a className="wbro-product-detail-action-favorite-button-fixed">
-      {favorite ? (
-        <HeartIcon style={{ color: "#ff7605" }} />
-      ) : (
-        <Icon type="heart" />
-      )}
-    </a>
+    <AddFavoriteButton
+      withText={false}
+      className="wbro-product-detail-action-favorite-button-fixed"
+    />
     <button className="product-detail-button add-to-cart button-fixed-flex-grow">
       Add to Cart
     </button>
     <LinkToEbayButton className="product-detail-button link-to-ebay button-fixed-flex-grow" />
   </div>
+);
+
+const FastShippingLogo = ({ isExpressShip, ...rest }) => (
+  <span
+    style={{
+      lineHeight: "34px",
+      whiteSpace: "nowrap",
+      color: "#337ab7",
+      marginLeft: 8
+    }}
+    {...rest}
+  >
+    {isExpressShip ? (
+      <span>
+        <Icon type="thunderbolt" theme="filled" style={{ fontSize: 16 }} />
+        <div style={{ display: "inline", fontSize: "14px", fontWeight: 500 }}>
+          12hrs Ship-Out
+        </div>
+      </span>
+    ) : (
+      <span />
+    )}{" "}
+  </span>
 );
 
 class _App extends React.Component {
@@ -261,83 +336,76 @@ class _App extends React.Component {
   render() {
     const { breadcrumb, tabKey } = this.props;
     return (
-      <div style={{ backgroundColor: "white" }}>
+      <div className="product-detail-container">
         <Row style={{ height: "64px", backgroundColor: "blue" }}>
           Hello CodeSandbox
         </Row>
-        <Row className="wbro-product-detail-breadcrumb">
+        <Row className="wbro-product-detail-breadcrumb product-detail-card">
           <CategoryBreadcrumb breadcrumbs={breadcrumb} groupTitle={""} />
         </Row>
 
-        <div className="App">
-          <div className="product-detail-card product-detail-upper-container">
-            <Row>
-              <Col
-                xl={10}
-                lg={12}
-                md={24}
-                sm={24}
-                xs={24}
-                className="image-gallery-container"
-                style={{ height: "100%" }}
-              >
-                <FloatView>
-                  <ImageGallery />
-                </FloatView>
-              </Col>
-              <Col xl={14} lg={12} md={24} sm={24} xs={24}>
-                <h1 className="wbro-product-detail-product-name">
-                  WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power
-                  Control Socket, Remote Control Your Household Equipment from
-                  Everywhere, No Hub Required, Works with Amazon Alexa and other
-                  smart assistants (4 Packs)
-                </h1>
-                <FeedbackIndicator rate={3} count={2} />
-                <Divider type="vertical" />
-                <span className="wbro-product-detail-number-indicator">
-                  <OrderNumIndicator num={111} />
-                  <Divider type="vertical" />
-                  <LinkedNumberIndicator num={120} />
-                  <Divider type="vertical" />
-                  <YouLinedIndicator linked={true} />
-                  <Divider type="vertical" />
-                  <SellerIndicator />
-                </span>
-                {/* {!this.props.linked && 
-              <div>
-              <Divider type="vertical" />
-              <LinkedIndicator />
-              </div>
-              } */}
-                <Divider className="title-price-divier" />
-                <ProductPriceArea />
-                <div className="buynowform-container">
-                  <BuyNowForm />
-                </div>
-                <Actions />
-                <ActionsFixed favorite={true} />
-                <Divider className="title-price-divier" />
-                <ReturnPolicy />
-                <Payment />
-                <BuyerProtection />
-              </Col>
-            </Row>
-          </div>
-
-          <div className="product-detail-card product-detail-lower-container">
-            <Row>
-              <TabMenu />
-            </Row>
-            <Row
-              className="detail-tabs-area"
-              style={{ width: "100%", paddingBottom: "256px" }}
+        <div className="product-detail-card product-detail-upper-container">
+          <Row>
+            <Col
+              xl={10}
+              lg={12}
+              md={24}
+              sm={24}
+              xs={24}
+              className="image-gallery-container"
+              style={{ height: "100%" }}
             >
-              {tabKey === "1" && (
-                <Description className="description" description={"😄"} />
-              )}
-              {tabKey === "2" && <SellerInfo className="description" />}
-            </Row>
-          </div>
+              <FloatView>
+                <ImageGallery />
+              </FloatView>
+            </Col>
+            <Col xl={14} lg={12} md={24} sm={24} xs={24}>
+              <div className="product-text-area">
+                <div className="product-name-detail-indicator">
+                  <h1 className="wbro-product-detail-product-name">
+                    WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power
+                    Control Socket, Remote Control Your Household Equipment from
+                    Everywhere, No Hub Required, Works with Amazon Alexa and
+                    other smart assistants (4 Packs)
+                  </h1>
+                  <FeedbackIndicator rate={3} count={2} />
+                  <span className="wbro-product-detail-number-indicator">
+                    <OrderNumIndicator num={111} />
+                    <Divider type="vertical" />
+                    <LinkedNumberIndicator num={120} />
+                    <YouLinkedIndicator />
+                    <Divider type="vertical" />
+                    <SellerIndicator />
+                  </span>
+                </div>
+                <div className="product-buy-area">
+                  <ProductPriceArea />
+                  <div className="buynowform-container">
+                    <BuyNowForm />
+                  </div>
+                  <Actions />
+                  <ActionsFixed favorite={true} />
+                  <Divider className="title-price-divier small-hidden" />
+                  <ReturnPolicy />
+                  <Payment />
+                  <BuyerProtection />
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="product-detail-card product-detail-lower-container">
+          <Row>
+            <TabMenu />
+          </Row>
+          <Row
+            className="detail-tabs-area"
+            style={{ width: "100%", paddingBottom: "256px" }}
+          >
+            {tabKey === "1" && <Description className="description" />}
+            {tabKey === "2" && <SellerInfo className="description" />}
+          </Row>
         </div>
       </div>
     );

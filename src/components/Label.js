@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col } from "antd";
-import "../styles.css";
 
 const labelSize = {
   xxl: 3,

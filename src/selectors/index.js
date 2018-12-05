@@ -140,6 +140,11 @@ export const filtersNameSelector = createSelector(
   }
 );
 
+export const filterHashSelector = createSelector(
+  filtersSelector,
+  values => values.join()
+);
+
 export const priceAreaInfoSelector = createSelector(
   displayInfoSelector,
   groupSelector,
@@ -232,6 +237,42 @@ export const activeVariationSelector = createSelector(
   allVariationsSelector,
   activeVariationIdSelector,
   (variations, id) => {
-    return variations.find(({_id}) => _id === id)
+    return variations.find(({ _id }) => _id === id);
   }
-)
+);
+
+const paths = [
+  { name: "Brand", path: "brand" },
+  { name: "Category", path: "category.name" },
+  { name: "Tags", getter: record => record.tags.join(", ") },
+  { name: "Area", path: "area.name" }
+];
+const propertiesSelector = group => {
+  return paths.map(({ name, getter, path }) => {
+    let value;
+    if (getter) {
+      value = getter(group);
+    } else {
+      value = get(group, path);
+    }
+    return { name, value };
+  });
+};
+
+export const descriptionPropsSelector = createSelector(
+  groupSelector,
+  group => ({
+    description: group.description,
+    properties: propertiesSelector(group)
+  })
+);
+
+export const isFavoriateSelector = createSelector(
+  productDetailViewSelector,
+  view => view.isFavoriate
+);
+
+export const isLinkedSelector = createSelector(
+  groupSelector,
+  group => group.linked
+);

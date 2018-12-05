@@ -23,12 +23,14 @@ const selectBreadcrumb = category => {
 export const productDetailView = {
   state: {
     summaryVisible: false,
+    priceAreaTopPostion: null,
     filters: [],
     breadcrumb: [],
     variations: [],
     activeVariationId: null,
     seller: null,
     variationsExpanded: false,
+    isFavoriate: false,
     group: {
       price: null,
       priceChange: null,
@@ -94,7 +96,7 @@ export const productDetailView = {
       filters[payload.index] = payload.value;
       return {
         ...state,
-        filters,
+        filters: [...filters],
         activeVariationId: null
       };
     },
@@ -104,6 +106,12 @@ export const productDetailView = {
         filters: state.filters.filter(value => value !== payload),
         activeVariationId: null
       };
+    },
+    toggleFavoriate(state, payload) {
+      return {
+        ...state,
+        isFavoriate: !state.isFavoriate
+      }
     },
     toggleSummaryVisible(state) {
       return {
@@ -123,6 +131,7 @@ export const productDetailView = {
         breadcrumb: selectBreadcrumb(payload.category),
         seller: payload.seller,
         variations: payload.products || [],
+        isFavoriate: payload.isFavoriate || false,
         group: {
           price: payload.price || 0,
           priceChange: payload.priceChange || 0,
@@ -136,7 +145,10 @@ export const productDetailView = {
           images: payload.image ? [payload.image] : [],
           tags: payload.tags || [],
           brand: payload.brand || null,
-          seller: payload.seller || {}
+          seller: payload.seller || {},
+          description: payload.description || null,
+          area: payload.area || null,
+          category: payload.category || null
         }
       };
     }
@@ -153,6 +165,10 @@ export const productDetailView = {
     async fetchCartAsync() {
       const cart = await fetchCart();
       dispatch.productDetailView.setCart(cart);
+    },
+    async toggleFavoriateAsync() {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      dispatch.productDetailView.toggleFavoriate()
     }
   })
 };

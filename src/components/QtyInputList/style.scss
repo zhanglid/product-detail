@@ -8,34 +8,6 @@
   float: right;
 }
 
-.bucket-tag-select.indicator {
-  position: relative;
-  left: 32px;
-  border-left: 1px solid #e8e8e8;
-  border-right: 1px solid #e8e8e8;
-  border-bottom: 1px solid #e8e8e8;
-  text-align: center;
-  width: 64px;
-  line-height: 24px;
-  z-index: 1;
-  background-color: white;
-
-  a {
-    display: table-cell;
-    color: gray;
-    width: 64px;
-    height: 16px;
-  }
-}
-.wbro-product-detail-table_col_fixed {
-  // background-color: rgb(8, 151, 156) !important;
-  // top: 0px;
-  // left: -20px;
-  // transition: color 0s;
-  // width: calc(100% + 20px);
-  // overflow: auto;
-  // z-index: 1000;
-}
 
 .list-title {
   // margin: 0px 20px 0px 20px;
@@ -69,6 +41,7 @@
       padding-right: 20px;
       left: 0;
       margin-top: 71px;
+      box-shadow: 0 3px 3px -2px #d5d5d5;
     }
   }
 }

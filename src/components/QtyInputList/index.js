@@ -10,9 +10,11 @@ import {
   variationExpandedSelector,
   activeVariationIdSelector,
   cartSelector,
+  filterHashSelector
 } from "../../selectors";
-import FixPic from "./fixPic"
+import FixPic from "./fixPic";
 import "./style.scss";
+import { Animated } from "react-animated-css";
 
 const variationMapStateToProps = (state, { _id }) => ({
   active: activeVariationIdSelector(state) === _id
@@ -44,7 +46,23 @@ const CartIndicator = connect((state, { _id }) => ({
   number: cartSelector(state)[_id]
 }))(_CartIndicator);
 
-const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
+const FlipAnimated = ({ children, delay = 0, ...rest }) => (
+  <Animated animationInDelay={delay} animationIn="flipInX" {...rest}>
+    {children}
+  </Animated>
+);
+
+const animatedProps = animated => (animated ? {} : { animationIn: "" });
+const ListItem = ({
+  variation,
+  price,
+  qty,
+  input,
+  className,
+  hash,
+  animated = true,
+  ...rest
+}) => (
   <Row
     type="flex"
     align="middle"
@@ -55,13 +73,19 @@ const ListItem = ({ variation, price, qty, input, className, ...rest }) => (
     }
   >
     <Col className="section" span={6} xl={6}>
-      {variation}
+      <FlipAnimated key={hash} {...animatedProps(animated)}>
+        <div>{variation}</div>
+      </FlipAnimated>
     </Col>
     <Col className="sections" span={6}>
-      {price}
+      <FlipAnimated delay={1} key={hash} {...animatedProps(animated)}>
+        <div>{price}</div>
+      </FlipAnimated>
     </Col>
     <Col className="sections" span={6}>
-      {qty}
+      <FlipAnimated delay={2} key={hash} {...animatedProps(animated)}>
+        <div>{qty}</div>
+      </FlipAnimated>
     </Col>
     <Col className="sections" span={6} xl={6}>
       {input}
@@ -79,7 +103,7 @@ export class QtyInputList extends Component {
       navOffset: null,
       navOffsetEnd: null
     };
-    // this.deboucedSetState = _.debounce(this.setState, 5);
+    this.deboucedSetState = _.debounce(this.setState, 5);
   }
 
   handleClick = _id => {
@@ -101,7 +125,7 @@ export class QtyInputList extends Component {
       window.scrollY > this.state.navOffset &&
       window.scrollY < this.state.navOffsetEnd;
     if (this.state.fixed !== currentStatus) {
-      this.setState({ fixed: currentStatus });
+      this.deboucedSetState({ fixed: currentStatus });
     }
   };
 
@@ -142,7 +166,7 @@ export class QtyInputList extends Component {
 
   render() {
     const { onChange, displayLimit, data: rawData, ...rest } = this.props;
-    
+
     const expanded = this.props.expanded || !this.isExpandable();
     const data = !expanded ? rawData.slice(0, displayLimit) : rawData;
     const loadMore = this.isExpandable() && (
@@ -161,9 +185,11 @@ export class QtyInputList extends Component {
           {...rest}
           className="list-form-list-width"
         >
-          {this.state.fixed && 
-            <div><FixPic/></div>
-          }
+          {this.state.fixed && (
+            <div>
+              <FixPic />
+            </div>
+          )}
           <div
             ref={this.navRef}
             className={
@@ -171,6 +197,7 @@ export class QtyInputList extends Component {
             }
           >
             <ListItem
+              animated={false}
               variation={<div>variation</div>}
               price="price"
               qty={
@@ -185,6 +212,7 @@ export class QtyInputList extends Component {
           {data.map(({ name, price, in_stock = 100000, _id }, index) => (
             <List.Item className="qty-input-list-row">
               <ListItem
+                hash={this.props.hash}
                 variation={<VariationTag name={name} _id={_id} key={index} />}
                 price={dollar(price)}
                 qty={
@@ -219,6 +247,7 @@ QtyInputList.defaultProps = {
 
 const mapState = state => ({
   expanded: variationExpandedSelector(state),
+  hash: filterHashSelector(state)
 });
 
 const mapDispatch = ({ productDetailView: { setVariationsExpanded } }) => ({

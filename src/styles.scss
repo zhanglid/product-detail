@@ -1,8 +1,10 @@
-.App {
-  margin: 1.5rem;
+.product-detail-container {
+  background-color: #eef0f3;
 }
+
 .wbro-product-detail-breadcrumb {
   padding: 16px;
+  background-color: #fafafa !important;
 }
 .wbro-product-detail-product-name {
   font-size: 16px;
@@ -43,11 +45,11 @@
 .wbro-product-detail-product-price-area {
   padding: 10px 20px 0;
 }
-.wbro-product-detail-price-dollar{
+.wbro-product-detail-price-dollar {
   font-size: 24px;
   font-weight: 300;
 }
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   .wbro-product-detail-price-dollar {
     font-size: 24px;
     font-weight: 400;
@@ -159,6 +161,7 @@
   line-height: 40px;
   font-size: 20px;
   font-weight: 400;
+  border-radius: 4px;
 }
 .wbro-product-detail-action-favorite-button-fixed:hover {
   color: #ff912c;
@@ -253,7 +256,7 @@
   font-weight: 400;
 }
 .wbro-product-detail-wishlist-color:hover {
-  color:rgb(8, 151, 156);
+  color: rgb(8, 151, 156);
   font-weight: 400;
 }
 
@@ -297,7 +300,6 @@
   .App {
     margin: 0px;
   }
-  
 }
 @media only screen and (max-width: 768px) {
   .wbro-product-detail-product-name {
@@ -308,6 +310,7 @@
     font-weight: 700;
     vertical-align: baseline;
   }
+
   .wbro-product-detail-product-price-tags.price {
     margin-right: auto;
   }
@@ -369,16 +372,52 @@
 }
 
 .product-detail-card {
-  margin-top: 16px;
+  margin-bottom: 16px;
   background-color: white;
   margin-right: 64px;
   margin-left: 64px;
-  /* border: 1px solid #E8E8E8; */
+  border: 1px solid #e8e8e8;
+}
+
+.product-name-detail-indicator {
+  background-color: white;
 }
 
 @media only screen and (max-width: 768px) {
-  .product-detail-card {
+  .product-detail-card,
+  .product-name-detail-indicator {
     margin-right: 0;
+    margin-bottom: 16px;
     margin-left: 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+  }
+  .wbro-product-detail-number-indicator {
+    padding-bottom: 10px;
+  }
+  .product-buy-area,
+  .product-name-detail-indicator {
+    background-color: white;
+  }
+
+  .product-text-area {
+    background-color: #eee;
+  }
+
+  .wbro-product-detail-breadcrumb .ant-breadcrumb > span {
+    visibility: hidden;
+    position: fixed;
+  }
+
+  .wbro-product-detail-breadcrumb .ant-breadcrumb > span:first-child {
+    visibility: visible;
+    position: relative;
+  }
+  .wbro-product-detail-breadcrumb .ant-breadcrumb > span:nth-last-child(2) {
+    visibility: visible;
+    position: relative;
+
+    span:last-of-type {
+      visibility: hidden;
+    }
   }
 }

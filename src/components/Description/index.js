@@ -2,18 +2,23 @@ import React from "react";
 import UIBox from "./components/UIBox";
 import PropertyList from "./components/PropertyList";
 import "./styles.css";
+import { connect } from "react-redux";
+import { descriptionPropsSelector } from "../../selectors";
 
 export class Description extends React.Component {
   render() {
-    const { values = [], description, className, ...rest } = this.props;
+    const { properties = [], description, packagingDetail, className, ...rest } = this.props;
     console.log(description);
     return (
-      <div {...rest} className={"description-area" + (className ? " " + className : "")}>
+      <div
+        {...rest}
+        className={"description-area" + (className ? " " + className : "")}
+      >
         <UIBox title="Item specifics">
-          <PropertyList data={values} />
+          <PropertyList data={properties} />
         </UIBox>
         <UIBox title="Product Description">{description}</UIBox>
-        <UIBox title="Packaging Details">
+        {packagingDetail && <UIBox title="Packaging Details">
           <PropertyList
             data={[
               { name: "Unit Type", value: "piece" },
@@ -24,10 +29,10 @@ export class Description extends React.Component {
               }
             ]}
           />
-        </UIBox>
+        </UIBox>}
       </div>
     );
   }
 }
 
-export default Description;
+export default connect(descriptionPropsSelector)(Description);

@@ -28,6 +28,7 @@ export default class QtyPicker extends Component {
     if (isNaN(value)) {
       value = originalValue;
     }
+    console.log(value, "vaaaalue");
     if (value > max) {
       this.setState(
         { alertMessage: `Purchases are limited to ${max} piece` },
@@ -94,7 +95,7 @@ export const QtyPickerField = ({ productId, ...rest }) => (
     name={"product-" + productId}
     component={renderField}
     type="text"
-    format={(value = 0) => parseFloat(value)}
+    format={(value = 0) => (value === undefined ? value : parseFloat(value))}
     parse={parseFloat}
     {...rest}
   />
@@ -108,6 +109,6 @@ QtyPicker.defaultProps = {
       value = value.replace(/\$\s?|(,*)/g, "");
       value = /[+-]?([0-9]*)[.]?[0-9]{0,2}[0-9]*/.exec(value)[1];
     }
-    return value;
+    return value === "" ? 0 : value;
   }
 };

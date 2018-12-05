@@ -14,16 +14,14 @@ export class ImageGallery extends Component {
       thumbnail: url
     }));
     return (
-      <div className = "product-detail-show-bullets"
-      >
+      <div className="product-detail-show-bullets">
         <ReactImageGallery
-          // className={"image-gallery-thumbnails-wrapper"}
           items={images}
           showPlayButton={false}
           lazyLoad={true}
           showFullscreenButton={false}
           thumbnailPosition="bottom"
-          showBullets = {true}
+          showBullets={true}
           renderItem={({ original }, index) => (
             <ReactImageMagnify
               style={{ overflow: "auto" }}
