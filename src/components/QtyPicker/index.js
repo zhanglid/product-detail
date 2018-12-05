@@ -103,7 +103,7 @@ export const QtyPickerField = ({ productId, ...rest }) => (
 
 QtyPicker.defaultProps = {
   min: 0,
-  max: 100,
+  max: 1000,
   parser: value => {
     if (value instanceof String) {
       value = value.replace(/\$\s?|(,*)/g, "");

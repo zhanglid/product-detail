@@ -47,9 +47,9 @@ const CartIndicator = connect((state, { _id }) => ({
 }))(_CartIndicator);
 
 const FlipAnimated = ({ children, delay = 0, ...rest }) => (
-  <Animated animationInDelay={delay} animationIn="flipInX" {...rest}>
+  <div className="animated bounceIn" {...rest}>
     {children}
-  </Animated>
+  </div>
 );
 
 const animatedProps = animated => (animated ? {} : { animationIn: "" });

@@ -30,6 +30,7 @@ import "./antd.less";
 import "./lib/pe-icon-set-e-commerce/css/pe-icon-set-e-commerce.css";
 import "./lib/pe-icon-set-e-commerce/css/helper.css";
 import { isArray } from "util";
+import "animate.css"
 
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"
