@@ -1,7 +1,8 @@
 import React from "react";
 import "./styles.scss";
-import { List, Button, Row, Col, Icon, Input } from "antd";
+import { List, Button, Row, Col, Icon, Input, Modal } from "antd";
 import moment from "moment";
+import _ from "lodash";
 const FixedLabel = ({ label, content, ...rest }) => {
   return (
     <div
@@ -53,9 +54,49 @@ const VotePart = ({ voteCount, isVoted, ...rest }) => (
 );
 
 export default class QuestionAndAnswer extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      visible:false,
+      inputValue:""
+    }
+    this.deboucedSetState = _.debounce(this.setState, 1000);
+  }
+  onChange = (e) => {
+    this.setState({
+      inputValue: e.target.value,
+      questionHint:false
+    })
+    
+    if (e.target.value !== "") {
+      this.deboucedSetState ({
+        visible:true
+      })
+    } else {
+      this.deboucedSetState({
+        visible:false
+      })
+    }
+  }
+  submitQuestion = () => {
+    if (this.state.inputValue.includes("?")) {
+      this.setState({
+        questionHint:false,
+      })
 
+      Modal.confirm({
+        title: 'Are you sure to submit this question?',
+        content: this.state.inputValue,
+      });
+    } else {
+      this.setState({
+        questionHint:true,
+      })
+    }
+  }
   render() {
     const { className, ...rest } = this.props;
+    const {questionHint,visible} = this.state
     const data = [
       {
         question: "Im an instant pot daily user, is this one just as good?",
@@ -93,13 +134,16 @@ export default class QuestionAndAnswer extends React.Component {
       >
         <Row style={{ padding: 0 }}>
           <Input
-            placeholder="Have a question? Search here!"
+            value = {this.state.inputValue}
+            onChange = {(e) => this.onChange(e)}
+            placeholder=  "Have a question? Search here! "
             prefix={<Icon type="search" style={{ color: "rgba(0,0,0,.25)" }} />}
           />
+          {questionHint && <div style = {{color:"red"}}>Please make sure that you are posting in the form of a question.</div>}
         </Row>
-        <Row style={{ padding:16 }}>
-          <div style = {{textAlign:"center",color:"black",fontWeight:400,fontSize:20}}> Don't see your answer <Button style = {{marginLeft:16}} >Ask the seller</Button></div>
-        </Row>
+       {visible && <Row style={{ padding:16 }}>
+          <div style = {{textAlign:"center",color:"black",fontWeight:400,fontSize:20}}> Don't see your answer <Button onClick = {this.submitQuestion} style = {{marginLeft:16}} >Ask the seller</Button></div>
+        </Row>}
 
         <Row
           className="product-detail-transaction-table-title"
