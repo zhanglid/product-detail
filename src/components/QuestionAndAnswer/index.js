@@ -43,10 +43,10 @@ const VotePart = ({ voteCount, isVoted, ...rest }) => (
     <div style={{ textAlign: "center" }}>Votes</div>
     <div style={{ textAlign: "center" }}>
       <Icon
-        type="heart"
+        type="like"
         theme={isVoted ? "filled" : "twoTone"}
-        twoToneColor="red"
-        style={{ color: "red", cursor: "pointer" }}
+        twoToneColor="#08979c"
+        style={{ color: "#08979c", cursor: "pointer" }}
       />
     </div>
   </div>
