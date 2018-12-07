@@ -94,6 +94,12 @@ export default class QuestionAndAnswer extends React.Component {
       })
     }
   }
+  handleDeleteQuestion = (question) => {
+    Modal.confirm({
+      title: 'Are you sure to delete this question?',
+      content: question,
+    });
+  }
   render() {
     const { className, ...rest } = this.props;
     const {questionHint,visible} = this.state
@@ -142,7 +148,7 @@ export default class QuestionAndAnswer extends React.Component {
           {questionHint && <div style = {{color:"red"}}>Please make sure that you are posting in the form of a question.</div>}
         </Row>
        {visible && <Row style={{ padding:16 }}>
-          <div style = {{textAlign:"center",color:"black",fontWeight:400,fontSize:20}}> Don't see your answer <Button onClick = {this.submitQuestion} style = {{marginLeft:16}} >Ask the seller</Button></div>
+          <div style = {{textAlign:"center",color:"black",fontWeight:400,fontSize:20,whiteSpace:"nowrap"}}> Don't see your answer <Button onClick = {this.submitQuestion} style = {{marginLeft:16}} >Ask the seller</Button></div>
         </Row>}
 
         <Row
@@ -173,7 +179,7 @@ export default class QuestionAndAnswer extends React.Component {
                       >
                         <FixedLabel label="Question" content={question} />
                         {isOwner && (
-                          <FixedLabel content={<a>Delete your question.</a>} />
+                          <FixedLabel content={<a onClick = {(e) =>this.handleDeleteQuestion(question)}>Delete your question.</a>} />
                         )}
                         <FixedLabel label="Answer" content={answer} />
                         <FixedLabel
