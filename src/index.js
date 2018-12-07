@@ -10,6 +10,7 @@ import TabMenu from "./components/TabMenu";
 import FloatView from "./components/FloatView";
 import BuyNowForm from "./components/BuyNowForm";
 import Description from "./components/Description";
+import QuestionAndAnswer  from "./components/QuestionAndAnswer";
 import SellerInfo from "./components/SellerInfo";
 import { reducer as formReducer } from "redux-form";
 import { Provider, connect } from "react-redux";
@@ -31,6 +32,7 @@ import "./lib/pe-icon-set-e-commerce/css/pe-icon-set-e-commerce.css";
 import "./lib/pe-icon-set-e-commerce/css/helper.css";
 import { isArray } from "util";
 import "animate.css"
+
 
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"
@@ -406,6 +408,7 @@ class _App extends React.Component {
           >
             {tabKey === "1" && <Description className="description" />}
             {tabKey === "2" && <SellerInfo className="description" />}
+            {tabKey === "3" && <QuestionAndAnswer className="description" />}
           </Row>
         </div>
       </div>
