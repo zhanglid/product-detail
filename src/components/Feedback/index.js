@@ -12,10 +12,13 @@ import {
   Form,
   Upload,
   Input,
-  Select
+  Select,
+  Popconfirm
 } from "antd";
 import moment from "moment";
+import "react-image-gallery/styles/css/image-gallery.css";
 import _ from "lodash";
+import ImageGallery from "react-image-gallery";
 import StarRatings from "react-star-ratings";
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -61,8 +64,11 @@ const FeedbackList = ({
   feedback,
   rate,
   vote,
-  variation,
   isVoted,
+  images,
+  isOwner,
+  onClick,
+  onConfirm,
   ...rest
 }) => (
   <div className="product-detail-feedback-item">
@@ -77,6 +83,17 @@ const FeedbackList = ({
         />
         ( {vote} )
       </div>
+      <div>
+        <Popconfirm
+          title="Do you want to report this review?"
+          onConfirm={onConfirm}
+          okText="Report"
+          cancelText="No"
+          placement="rightBottom"
+        >
+          <a>Report</a>
+        </Popconfirm>
+      </div>
     </div>
     <div className="product-detail-fb-item-main">
       <StarRatings
@@ -89,33 +106,54 @@ const FeedbackList = ({
         starSpacing="2px"
       />
       <span style={{ color: "black" }}> {rate.toFixed(2)} </span>
-      <div>
-        variation:
-        {variation.map(vari => (
-          <span style={{ marginRight: 4 }}>{vari}</span>
-        ))}
-      </div>
       <div>{feedback}</div>
       <div>{moment(date).format("lll")}</div>
+      {isOwner && (
+        <div>
+          <a>Delete Your Review</a>
+        </div>
+      )}
+      <div style={{ marginTop: 6 }}>
+        {images.map((src, index) => (
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              display: "table-cell",
+              textAlign: "center",
+              verticalAlign: "middle",
+              cursor: "pointer"
+            }}
+          >
+            <img
+              onClick={() => onClick(images, index)}
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              src={src}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 );
 
-const ReviewList = ({ title, url, variation, ...rest }) => (
+const ReviewList = ({ title, url, ...rest }) => (
   <div className="product-detail-review-item">
     <div className="product-detail-review-item-user-info">
-      <div style={{ width: 150, height: 150 }}>
-        <img style={{ maxWidth: "100%" }} src={url} />
+      <div
+        style={{
+          width: 150,
+          height: 150,
+          display: "table-cell",
+          textAlign: "center",
+          verticalAlign: "middle"
+        }}
+      >
+        <img style={{ maxWidth: "100%", maxHeight: "100%" }} src={url} />
       </div>
     </div>
     <div className="product-detail-review-item-main">
       <div style={{ lineHeight: "17px" }}>{title}</div>
-      <div>
-        variation:{" "}
-        {variation.map(vari => (
-          <span style={{ marginRight: 4 }}>{vari}</span>
-        ))}
-      </div>
     </div>
   </div>
 );
@@ -170,7 +208,9 @@ export default class Feedback extends React.Component {
     super(props);
     this.state = {
       visible: false,
-      fileList: []
+      fileList: [],
+      ImageIndex: 0,
+      Imagevisible: false
     };
   }
 
@@ -208,8 +248,29 @@ export default class Feedback extends React.Component {
   handleStars = value => {
     console.log(value);
   };
+
+  imageClick = (images, index) => {
+    const imagesData = _.map(images, image => {
+      return {
+        original: image,
+        thumbnail: image
+      };
+    });
+    console.log(imagesData, "set what", index);
+    this.setState({
+      ImageIndex: index,
+      Imagevisible: true,
+      imageData: imagesData
+    });
+  };
+  handleImageCancel = () => {
+    this.setState({
+      Imagevisible: false
+    });
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { canReview } = this.props;
     const { fileList } = this.state;
     const rateDistribution = [
       {
@@ -237,41 +298,55 @@ export default class Feedback extends React.Component {
     const data = [
       {
         name: "Simon",
-        feedback:
+        content:
           "I've used both the MultiPot and the InstantPot and I prefer the MultiPot. The feature set is stronger than that of the Instant Pot that's at the same price point. The cook times are about the same (haven't timed them with a stop watch side by side, but MultiPot feels as fast).",
-        feedbackDate: "2018-10-23T17:43:26.226Z",
+        createdAt: "2018-10-23T17:43:26.226Z",
         voteCount: 20,
         rate: 5.0,
-        variation: ["6p", "black"],
-        isVoted: true
+        isVoted: true,
+        isOwner: true,
+        images: [
+          "https://statics.lettopia.com/wirelessbro-images/5bf60e733b6989748623725b_1542852240596_kuzma.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5b47ecc5531ff45a35e02871_1533246585185_Hong_group.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5be3e294c7b6bc0666357f6d_1541661347741_activestylus_b.jpg"
+        ]
       },
       {
         name: "Jerry",
-        feedback:
+        content:
           "I've used both the MultiPot and the InstantPot and I prefer the MultiPot. The feature set is stronger than that of the Instant Pot that's at the same price point. The cook times are about the same (haven't timed them with a stop watch side by side, but MultiPot feels as fast).",
-        feedBackDate: "2018-10-24T17:43:26.226Z",
+        createdAt: "2018-10-24T17:43:26.226Z",
         voteCount: 10,
+        isOwner: false,
         rate: 4.0,
-        variation: ["6p", "black"],
-        isVoted: false
+        isVoted: false,
+        images: [
+          "https://statics.lettopia.com/wirelessbro-images/5bf60e733b6989748623725b_1542852240596_kuzma.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5b47ecc5531ff45a35e02871_1533246585185_Hong_group.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5be3e294c7b6bc0666357f6d_1541661347741_activestylus_b.jpg"
+        ]
       },
       {
         name: "Dendi",
-        feedback:
+        content:
           "I've used both the MultiPot and the InstantPot and I prefer the MultiPot. The feature set is stronger than that of the Instant Pot that's at the same price point. The cook times are about the same (haven't timed them with a stop watch side by side, but MultiPot feels as fast).",
-        feedbackDate: "2018-10-25T17:43:26.226Z",
+        createdAt: "2018-10-25T17:43:26.226Z",
         voteCount: 30,
         rate: 5.0,
-        variation: ["6p", "black"],
-        isVoted: false
+        isVoted: false,
+        isOwner: false,
+        images: [
+          "https://statics.lettopia.com/wirelessbro-images/5bf60e733b6989748623725b_1542852240596_kuzma.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5b47ecc5531ff45a35e02871_1533246585185_Hong_group.jpg",
+          "https://statics.lettopia.com/wirelessbro-images/5be3e294c7b6bc0666357f6d_1541661347741_activestylus_b.jpg"
+        ]
       }
     ];
     const product = {
       url:
         "https://statics.lettopia.com/wirelessbro-images/5b47ecc5531ff45a35e02871_1533246585185_Hong_group.jpg",
       title:
-        "WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power Control Socket, Remote Control Your Household Equipment from Everywhere, No Hub Required, Works with Amazon Alexa and other smart assistants (4 Packs)",
-      variation: ["i5", "balck"]
+        "WiFi Smart Plug Mini on market, ASTROPANDA Smart Home Power Control Socket, Remote Control Your Household Equipment from Everywhere, No Hub Required, Works with Amazon Alexa and other smart assistants (4 Packs)"
     };
 
     return (
@@ -321,9 +396,11 @@ export default class Feedback extends React.Component {
             >
               200 Reviews
             </div>
-            <div style={{ textAlign: "center", marginTop: 10 }}>
-              <Button onClick={this.showFeedbackModal}>Write A Review</Button>
-            </div>
+            {canReview && (
+              <div style={{ textAlign: "center", marginTop: 10 }}>
+                <Button onClick={this.showFeedbackModal}>Write A Review</Button>
+              </div>
+            )}
             <Modal
               title="Write Your Review"
               visible={this.state.visible}
@@ -334,11 +411,7 @@ export default class Feedback extends React.Component {
               <Form>
                 <Form onSubmit={this.handleOk}>
                   <FormItem>
-                    <ReviewList
-                      url={product.url}
-                      variation={product.variation}
-                      title={product.title}
-                    />
+                    <ReviewList url={product.url} title={product.title} />
                   </FormItem>
 
                   <FormItem label="Rate this product">
@@ -412,13 +485,13 @@ export default class Feedback extends React.Component {
           </div>
         </div>
         <div className="product-detail-feedback-action ">
-          <div style = {{display:"flex"}}>
-            <div style = {{flexGrow:1}} >
-             Filter: <Select
+          <div style={{ display: "flex" }}>
+            <div style={{ flexGrow: 1 }}>
+              Filter:{" "}
+              <Select
                 onChange={this.handleStars}
                 size="small"
                 defaultValue="all"
-                
               >
                 <Option value="all">All stars</Option>
                 <Option value="5">Five Stars</Option>
@@ -428,14 +501,15 @@ export default class Feedback extends React.Component {
                 <Option value="1">One Star</Option>
               </Select>
             </div>
-            <div style = {{float:"right"}}>
+            <div style={{ float: "right" }}>
               <Select
                 onChange={this.handleSort}
                 size="small"
                 defaultValue="latest"
               >
-                <Option value="early">Sort By Eailest</Option>
+                <Option value="early">Sort By Earliest</Option>
                 <Option value="latest">Sort By Latest</Option>
+                <Option value="topReviews">Top Reviews</Option>
               </Select>
             </div>
           </div>
@@ -445,28 +519,53 @@ export default class Feedback extends React.Component {
             {data.map(item => {
               const {
                 name,
-                feedback,
-                feedBackDate,
+                content,
+                createdAt,
                 rate,
-                variation,
                 voteCount,
-                isVoted
+                isVoted,
+                images,
+                isOwner
               } = item;
               return (
                 <List.Item>
                   <FeedbackList
                     name={name}
-                    feedback={feedback}
+                    feedback={content}
                     rate={rate}
-                    variation={variation}
-                    date={feedBackDate}
+                    date={createdAt}
                     vote={voteCount}
                     isVoted={isVoted}
+                    images={images}
+                    isOwner={isOwner}
+                    onClick={this.imageClick}
+                    onConfirm = {this.confirmReport}
                   />
                 </List.Item>
               );
             })}
           </List>
+          <Modal
+            className="wbro-product-zoom-picture"
+            wrapClassName="wbro-product-zoom-modal-wrap"
+            visible={this.state.Imagevisible}
+            onCancel={this.handleImageCancel}
+            destroyOnClose={true}
+            footer={null}
+          >
+            <div className="wbro-product-zoom-modal">
+              <ImageGallery
+                items={this.state.imageData}
+                showPlayButton={false}
+                lazyLoad={true}
+                showFullscreenButton={false}
+                showNav={true}
+                showThumbnails={false}
+                showBullets={true}
+                startIndex={this.state.ImageIndex}
+              />
+            </div>
+          </Modal>
         </div>
       </div>
     );

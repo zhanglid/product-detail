@@ -196,7 +196,7 @@ export default class QuestionAndAnswer extends React.Component {
             }
           )}
         </List>
-        <Feedback />
+        <Feedback canReview = {true}  />
       </div>
     );
   }
