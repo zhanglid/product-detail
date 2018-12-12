@@ -3,6 +3,7 @@ import "./styles.scss";
 import { List, Button, Row, Col, Icon, Input, Modal } from "antd";
 import moment from "moment";
 import _ from "lodash";
+import Feedback from '../Feedback'
 const FixedLabel = ({ label, content, ...rest }) => {
   return (
     <div
@@ -195,6 +196,7 @@ export default class QuestionAndAnswer extends React.Component {
             }
           )}
         </List>
+        <Feedback />
       </div>
     );
   }

@@ -31,6 +31,7 @@ import "./antd.less";
 import "./lib/pe-icon-set-e-commerce/css/pe-icon-set-e-commerce.css";
 import "./lib/pe-icon-set-e-commerce/css/helper.css";
 import { isArray } from "util";
+import StarRatings from "react-star-ratings";
 import "animate.css"
 
 
@@ -60,7 +61,16 @@ const CategoryBreadcrumb = connect(breadcrumbSelector)(_CategoryBreadcrumb);
 
 const FeedbackIndicator = ({ rate = 5, count = 0 }) => (
   <span className="wbro-product-detail-feedback-indicator">
-    <Rate className="wbro-product-detail-feedback-rate" value={rate} disabled />
+    {/* <Rate className="wbro-product-detail-feedback-rate" value={rate} disabled /> */}
+    <StarRatings
+        starRatedColor="#fadb14"
+        numberOfStars={5}
+        name="rating"
+        rating={rate}
+        starDimension={16}
+        starEmptyColor="#e8e8e8"
+        starSpacing = "2px"
+      />
     <span className="wbro-product-detail-small-light-indicator">
       {rate.toFixed(2)}
     </span>
@@ -381,6 +391,7 @@ class _App extends React.Component {
                     <SellerIndicator />
                   </span>
                 </div>
+                <Divider className="title-price-divier small-hidden" />
                 <div className="product-buy-area">
                   <ProductPriceArea />
                   <div className="buynowform-container">
